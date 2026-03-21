@@ -1,0 +1,1340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>90-Day Fitness Challenge</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800;900&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0c0c0e;
+  --surface: #141416;
+  --surface2: #1c1c20;
+  --border: #2a2a30;
+  --text: #f5f5f7;
+  --muted: #888894;
+  --orange: #ff6b2b;
+  --orange2: #ff9500;
+  --orange-bg: #ff6b2b18;
+  --green: #30d158;
+  --green-bg: #30d15818;
+  --red: #ff453a;
+  --blue: #0a84ff;
+  --yellow: #ffd60a;
+  --radius: 16px;
+  --radius-lg: 22px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Barlow', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ── NAV ── */
+nav {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(12,12,14,0.92);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 28px;
+  height: 60px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+
+.nav-logo {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1.5rem; font-weight: 900;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text);
+}
+
+.nav-logo span { color: var(--orange); }
+
+.nav-links {
+  display: flex; gap: 4px;
+}
+
+.nav-btn {
+  background: none; border: none;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.9rem; font-weight: 600;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--muted); cursor: pointer;
+  padding: 7px 14px; border-radius: 8px;
+  transition: all 0.2s;
+}
+
+.nav-btn:hover, .nav-btn.active {
+  color: var(--text); background: var(--surface2);
+}
+
+.nav-btn.active { color: var(--orange); }
+
+/* ── PAGES ── */
+.page { display: none; }
+.page.active { display: block; }
+
+/* ── HERO ── */
+.hero {
+  position: relative;
+  padding: 80px 28px 60px;
+  text-align: center;
+  overflow: hidden;
+}
+
+.hero-bg {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 60% 40% at 50% -10%, #ff6b2b28 0%, transparent 70%),
+    radial-gradient(ellipse 40% 60% at 80% 80%, #ff950012 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.hero-tag {
+  display: inline-block;
+  background: var(--orange-bg);
+  border: 1px solid #ff6b2b66;
+  color: var(--orange);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.78rem; font-weight: 700;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  padding: 5px 16px; border-radius: 20px;
+  margin-bottom: 20px;
+}
+
+.hero h1 {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: clamp(3rem, 8vw, 5.5rem);
+  font-weight: 900;
+  line-height: 1;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  margin-bottom: 16px;
+}
+
+.hero h1 .highlight {
+  color: var(--orange);
+  position: relative;
+}
+
+.hero p {
+  font-size: 1.1rem; color: var(--muted);
+  max-width: 520px; margin: 0 auto 36px;
+  line-height: 1.65;
+}
+
+.hero-btns {
+  display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;
+}
+
+.btn-primary {
+  background: var(--orange);
+  color: #fff; border: none;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1rem; font-weight: 700;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  padding: 14px 32px; border-radius: 10px;
+  cursor: pointer; transition: all 0.2s;
+}
+
+.btn-primary:hover { background: #ff7d44; transform: translateY(-2px); box-shadow: 0 8px 28px #ff6b2b44; }
+
+.btn-ghost {
+  background: none;
+  color: var(--text); border: 1.5px solid var(--border);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1rem; font-weight: 700;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  padding: 14px 32px; border-radius: 10px;
+  cursor: pointer; transition: all 0.2s;
+}
+
+.btn-ghost:hover { border-color: var(--orange); color: var(--orange); }
+
+/* ── PHASE CARDS ── */
+.phases {
+  padding: 0 28px 60px;
+  max-width: 1100px; margin: 0 auto;
+}
+
+.section-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.78rem; font-weight: 700;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--orange); margin-bottom: 12px;
+}
+
+.section-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 2.4rem; font-weight: 900;
+  text-transform: uppercase; letter-spacing: -0.01em;
+  color: var(--text); margin-bottom: 8px;
+}
+
+.section-sub {
+  color: var(--muted); font-size: 0.95rem;
+  line-height: 1.6; max-width: 500px; margin-bottom: 36px;
+}
+
+.phase-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+
+.phase-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 28px 24px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.25s;
+  cursor: pointer;
+}
+
+.phase-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  transition: opacity 0.25s;
+  opacity: 0.7;
+}
+
+.phase-card:nth-child(1)::before { background: linear-gradient(90deg, var(--green), #5eead4); }
+.phase-card:nth-child(2)::before { background: linear-gradient(90deg, var(--orange), var(--orange2)); }
+.phase-card:nth-child(3)::before { background: linear-gradient(90deg, var(--red), #ff8c69); }
+
+.phase-card:hover { border-color: #3a3a44; transform: translateY(-4px); box-shadow: 0 16px 48px rgba(0,0,0,0.4); }
+
+.phase-num {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 3.5rem; font-weight: 900;
+  line-height: 1; opacity: 0.08;
+  position: absolute; top: 16px; right: 20px;
+  color: var(--text);
+}
+
+.phase-badge {
+  display: inline-block;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.72rem; font-weight: 700;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 4px 12px; border-radius: 20px;
+  margin-bottom: 14px;
+}
+
+.badge-green { background: var(--green-bg); color: var(--green); border: 1px solid #30d15844; }
+.badge-orange { background: var(--orange-bg); color: var(--orange); border: 1px solid #ff6b2b44; }
+.badge-red { background: #ff453a18; color: var(--red); border: 1px solid #ff453a44; }
+
+.phase-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1.4rem; font-weight: 800;
+  text-transform: uppercase; margin-bottom: 6px;
+}
+
+.phase-days {
+  font-size: 0.83rem; color: var(--muted); margin-bottom: 16px;
+}
+
+.phase-desc {
+  font-size: 0.9rem; color: var(--muted);
+  line-height: 1.6; margin-bottom: 18px;
+}
+
+.phase-stats {
+  display: flex; gap: 12px;
+}
+
+.pstat {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 8px 12px;
+  text-align: center;
+  flex: 1;
+}
+
+.pstat-n {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1.3rem; font-weight: 800; color: var(--text);
+}
+
+.pstat-l { font-size: 0.7rem; color: var(--muted); margin-top: 1px; }
+
+/* ── WORKOUT SCHEDULE ── */
+.schedule-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 10px;
+  margin-top: 28px;
+}
+
+.day-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 14px 10px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.day-card:hover { border-color: var(--orange); }
+.day-card.rest { opacity: 0.5; }
+.day-card.active-day { border-color: var(--orange); background: var(--orange-bg); }
+
+.day-name {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.75rem; font-weight: 700;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--muted); margin-bottom: 8px;
+}
+
+.day-icon { font-size: 1.3rem; margin-bottom: 6px; }
+
+.day-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.72rem; font-weight: 700;
+  text-transform: uppercase; color: var(--muted);
+}
+
+.day-card.active-day .day-name,
+.day-card.active-day .day-label { color: var(--orange); }
+
+/* ── EXERCISE LIBRARY ── */
+.exercise-filters {
+  display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px;
+}
+
+.filter-btn {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--muted);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.82rem; font-weight: 700;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  padding: 7px 16px; border-radius: 20px;
+  cursor: pointer; transition: all 0.2s;
+}
+
+.filter-btn:hover, .filter-btn.active {
+  background: var(--orange-bg);
+  border-color: var(--orange);
+  color: var(--orange);
+}
+
+.exercise-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+.ex-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+  transition: all 0.2s;
+  cursor: pointer;
+}
+
+.ex-card:hover { border-color: var(--border); box-shadow: 0 8px 28px rgba(0,0,0,0.3); transform: translateY(-2px); }
+
+.ex-header {
+  display: flex; align-items: center; gap: 12px; margin-bottom: 10px;
+}
+
+.ex-icon {
+  width: 42px; height: 42px; border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.2rem; flex-shrink: 0;
+}
+
+.ex-name {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1.1rem; font-weight: 800;
+  text-transform: uppercase; color: var(--text);
+}
+
+.ex-muscle {
+  font-size: 0.78rem; color: var(--muted); margin-top: 1px;
+}
+
+.ex-desc {
+  font-size: 0.85rem; color: var(--muted);
+  line-height: 1.6; margin-bottom: 14px;
+}
+
+.ex-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+
+.ex-tag {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.7rem; font-weight: 700;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  padding: 3px 10px; border-radius: 20px;
+}
+
+/* ── TRACKER PAGE ── */
+.tracker-layout {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 24px;
+  padding: 28px;
+  max-width: 1100px; margin: 0 auto;
+}
+
+.day-progress {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 28px;
+  margin-bottom: 20px;
+}
+
+.progress-header {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.current-day-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.78rem; font-weight: 700;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--orange);
+}
+
+.current-day-num {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 2.2rem; font-weight: 900;
+  color: var(--text); line-height: 1;
+}
+
+.progress-bar-wrap {
+  background: var(--surface2);
+  border-radius: 4px; height: 8px;
+  overflow: hidden; margin-bottom: 8px;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--orange), var(--orange2));
+  border-radius: 4px;
+  transition: width 0.8s ease;
+}
+
+.progress-pct {
+  font-size: 0.8rem; color: var(--muted); text-align: right;
+}
+
+/* ── WORKOUT CHECKLIST ── */
+.workout-list { display: flex; flex-direction: column; gap: 10px; }
+
+.workout-item {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 14px 16px;
+  display: flex; align-items: center; gap: 14px;
+  cursor: pointer; transition: all 0.2s;
+  user-select: none;
+}
+
+.workout-item:hover { border-color: var(--border); background: #222228; }
+.workout-item.done { border-color: #30d15844; background: var(--green-bg); }
+
+.check-circle {
+  width: 26px; height: 26px; border-radius: 50%;
+  border: 2px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; transition: all 0.2s; font-size: 12px;
+}
+
+.workout-item.done .check-circle {
+  background: var(--green); border-color: var(--green); color: #000;
+}
+
+.workout-name {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1rem; font-weight: 700;
+  text-transform: uppercase; flex: 1;
+}
+
+.workout-item.done .workout-name { color: var(--muted); text-decoration: line-through; }
+
+.workout-reps {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.9rem; font-weight: 700;
+  color: var(--orange);
+}
+
+/* ── STATS SIDEBAR ── */
+.stats-sidebar { display: flex; flex-direction: column; gap: 14px; }
+
+.stat-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+}
+
+.stat-card-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.72rem; font-weight: 700;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--muted); margin-bottom: 8px;
+}
+
+.stat-card-value {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 2.6rem; font-weight: 900;
+  line-height: 1; color: var(--text);
+}
+
+.stat-card-sub {
+  font-size: 0.8rem; color: var(--muted); margin-top: 4px;
+}
+
+/* ── STREAK CALENDAR ── */
+.streak-grid {
+  display: grid;
+  grid-template-columns: repeat(13, 1fr);
+  gap: 4px;
+}
+
+.streak-cell {
+  aspect-ratio: 1;
+  border-radius: 3px;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.streak-cell.done { background: var(--orange); border-color: var(--orange); }
+.streak-cell.today { border-color: var(--orange); }
+.streak-cell:hover { transform: scale(1.2); }
+
+/* ── NUTRITION PAGE ── */
+.nutrition-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 18px;
+}
+
+.nutrition-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: all 0.25s;
+}
+
+.nutrition-card:hover { border-color: #3a3a44; transform: translateY(-3px); }
+
+.nutrition-header {
+  padding: 20px 22px 14px;
+  border-bottom: 1px solid var(--border);
+}
+
+.nutrition-icon { font-size: 1.8rem; margin-bottom: 8px; }
+
+.nutrition-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1.2rem; font-weight: 800;
+  text-transform: uppercase; color: var(--text);
+}
+
+.nutrition-cal {
+  font-size: 0.82rem; color: var(--muted); margin-top: 3px;
+}
+
+.nutrition-body { padding: 16px 22px; }
+
+.macro-row {
+  display: flex; align-items: center;
+  justify-content: space-between;
+  padding: 7px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.88rem;
+}
+
+.macro-row:last-child { border-bottom: none; }
+.macro-name { color: var(--muted); }
+.macro-val { font-weight: 600; color: var(--text); }
+
+/* ── TIPS PAGE ── */
+.tips-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 18px;
+}
+
+.tip-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 26px;
+  transition: all 0.2s;
+  border-left: 3px solid transparent;
+}
+
+.tip-card:hover { border-color: var(--border); box-shadow: 0 8px 28px rgba(0,0,0,0.3); }
+.tip-card.tip-orange { border-left-color: var(--orange); }
+.tip-card.tip-green { border-left-color: var(--green); }
+.tip-card.tip-blue { border-left-color: var(--blue); }
+.tip-card.tip-yellow { border-left-color: var(--yellow); }
+
+.tip-num {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.72rem; font-weight: 700;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--muted); margin-bottom: 8px;
+}
+
+.tip-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1.2rem; font-weight: 800;
+  text-transform: uppercase; color: var(--text);
+  margin-bottom: 10px;
+}
+
+.tip-body {
+  font-size: 0.9rem; color: var(--muted);
+  line-height: 1.7;
+}
+
+/* ── SECTION WRAPPER ── */
+.section-wrap {
+  padding: 48px 28px 60px;
+  max-width: 1100px; margin: 0 auto;
+}
+
+/* ── BMI CALCULATOR ── */
+.bmi-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 32px;
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+.bmi-inputs {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 14px;
+  margin: 24px 0;
+}
+
+.input-group label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.75rem; font-weight: 700;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--muted); display: block; margin-bottom: 6px;
+}
+
+.input-group input {
+  width: 100%; background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 10px; padding: 12px 14px;
+  color: var(--text);
+  font-family: 'Barlow', sans-serif; font-size: 1rem;
+  outline: none; transition: border-color 0.2s;
+}
+
+.input-group input:focus { border-color: var(--orange); }
+.input-group input::placeholder { color: var(--muted); }
+
+.bmi-result {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px; text-align: center;
+  margin-top: 16px; display: none;
+}
+
+.bmi-num {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 3.5rem; font-weight: 900; line-height: 1;
+}
+
+.bmi-cat {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.08em;
+  margin-top: 4px;
+}
+
+/* ── FOOTER ── */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 32px 28px;
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+/* ── ANIMATIONS ── */
+.fade-in { animation: fadeIn 0.5s ease both; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+
+@media (max-width: 768px) {
+  .phase-grid { grid-template-columns: 1fr; }
+  .schedule-grid { grid-template-columns: repeat(4, 1fr); }
+  .tracker-layout { grid-template-columns: 1fr; }
+  .bmi-inputs { grid-template-columns: 1fr; }
+  nav { padding: 0 14px; }
+  .nav-btn { padding: 7px 9px; font-size: 0.78rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">90<span>Day</span> Beast</div>
+  <div class="nav-links">
+    <button class="nav-btn active" onclick="showPage('home')">Home</button>
+    <button class="nav-btn" onclick="showPage('plan')">Plan</button>
+    <button class="nav-btn" onclick="showPage('tracker')">Tracker</button>
+    <button class="nav-btn" onclick="showPage('exercises')">Exercises</button>
+    <button class="nav-btn" onclick="showPage('nutrition')">Nutrition</button>
+    <button class="nav-btn" onclick="showPage('tips')">Tips</button>
+  </div>
+</nav>
+
+<!-- ═══════════ HOME PAGE ═══════════ -->
+<div id="page-home" class="page active">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-tag">90-Day Body Transformation</div>
+    <h1>Transform Your<br>Body in <span class="highlight">90 Days</span></h1>
+    <p>A structured, no-excuses fitness program designed to rebuild your body from the ground up. No gym needed. Just commitment.</p>
+    <div class="hero-btns">
+      <button class="btn-primary" onclick="showPage('plan')">Start the Program →</button>
+      <button class="btn-ghost" onclick="showPage('tracker')">Track Progress</button>
+    </div>
+  </div>
+
+  <!-- QUICK STATS -->
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border-top:1px solid var(--border);border-bottom:1px solid var(--border);margin-bottom:60px">
+    <div style="background:var(--surface);padding:24px;text-align:center">
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:2.4rem;font-weight:900;color:var(--orange)">90</div>
+      <div style="font-size:0.82rem;color:var(--muted);margin-top:2px">Days Total</div>
+    </div>
+    <div style="background:var(--surface);padding:24px;text-align:center">
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:2.4rem;font-weight:900;color:var(--text)">3</div>
+      <div style="font-size:0.82rem;color:var(--muted);margin-top:2px">Phases</div>
+    </div>
+    <div style="background:var(--surface);padding:24px;text-align:center">
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:2.4rem;font-weight:900;color:var(--text)">5-6</div>
+      <div style="font-size:0.82rem;color:var(--muted);margin-top:2px">Days / Week</div>
+    </div>
+    <div style="background:var(--surface);padding:24px;text-align:center">
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:2.4rem;font-weight:900;color:var(--green)">0</div>
+      <div style="font-size:0.82rem;color:var(--muted);margin-top:2px">Equipment Needed</div>
+    </div>
+  </div>
+
+  <!-- PHASES OVERVIEW -->
+  <div class="phases fade-in">
+    <div class="section-label">Program Structure</div>
+    <div class="section-title">3 Brutal Phases</div>
+    <div class="section-sub">Each phase progressively builds on the last. Skip nothing. Rest when scheduled.</div>
+    <div class="phase-grid">
+      <div class="phase-card" onclick="showPage('plan')">
+        <div class="phase-num">01</div>
+        <span class="phase-badge badge-green">Phase 1</span>
+        <div class="phase-title">Foundation</div>
+        <div class="phase-days">Days 1–30 · Build the base</div>
+        <div class="phase-desc">Master the fundamentals. Build the habit. Learn proper form on every movement. This phase seems easy — it isn't.</div>
+        <div class="phase-stats">
+          <div class="pstat"><div class="pstat-n">30</div><div class="pstat-l">Days</div></div>
+          <div class="pstat"><div class="pstat-n">5</div><div class="pstat-l">Days/Wk</div></div>
+          <div class="pstat"><div class="pstat-n">45</div><div class="pstat-l">Min/Day</div></div>
+        </div>
+      </div>
+      <div class="phase-card" onclick="showPage('plan')">
+        <div class="phase-num">02</div>
+        <span class="phase-badge badge-orange">Phase 2</span>
+        <div class="phase-title">Intensity</div>
+        <div class="phase-days">Days 31–60 · Push harder</div>
+        <div class="phase-desc">Volume increases. Rest time drops. Your body has adapted — now it's time to shock it again with higher intensity.</div>
+        <div class="phase-stats">
+          <div class="pstat"><div class="pstat-n">30</div><div class="pstat-l">Days</div></div>
+          <div class="pstat"><div class="pstat-n">5</div><div class="pstat-l">Days/Wk</div></div>
+          <div class="pstat"><div class="pstat-n">55</div><div class="pstat-l">Min/Day</div></div>
+        </div>
+      </div>
+      <div class="phase-card" onclick="showPage('plan')">
+        <div class="phase-num">03</div>
+        <span class="phase-badge badge-red">Phase 3</span>
+        <div class="phase-title">Shred</div>
+        <div class="phase-days">Days 61–90 · Finish strong</div>
+        <div class="phase-desc">Maximum output. Minimum excuses. This is where transformations happen. HIIT, circuits, and daily challenges.</div>
+        <div class="phase-stats">
+          <div class="pstat"><div class="pstat-n">30</div><div class="pstat-l">Days</div></div>
+          <div class="pstat"><div class="pstat-n">6</div><div class="pstat-l">Days/Wk</div></div>
+          <div class="pstat"><div class="pstat-n">65</div><div class="pstat-l">Min/Day</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>© 2025 90Day Beast · No excuses. No shortcuts. Just results.</footer>
+</div>
+
+<!-- ═══════════ PLAN PAGE ═══════════ -->
+<div id="page-plan" class="page">
+  <div class="section-wrap">
+    <div class="section-label">Full Program</div>
+    <div class="section-title">Weekly Training Split</div>
+    <div class="section-sub">Follow this split throughout the program. Intensity and volume scale each phase.</div>
+
+    <div class="schedule-grid">
+      <div class="day-card active-day"><div class="day-name">Mon</div><div class="day-icon">💪</div><div class="day-label">Push</div></div>
+      <div class="day-card"><div class="day-name">Tue</div><div class="day-icon">🦵</div><div class="day-label">Legs</div></div>
+      <div class="day-card"><div class="day-name">Wed</div><div class="day-icon">🔙</div><div class="day-label">Pull</div></div>
+      <div class="day-card rest"><div class="day-name">Thu</div><div class="day-icon">😴</div><div class="day-label">Rest</div></div>
+      <div class="day-card"><div class="day-name">Fri</div><div class="day-icon">🏃</div><div class="day-label">Cardio</div></div>
+      <div class="day-card"><div class="day-name">Sat</div><div class="day-icon">⚡</div><div class="day-label">Full Body</div></div>
+      <div class="day-card rest"><div class="day-name">Sun</div><div class="day-icon">🧘</div><div class="day-label">Active Rest</div></div>
+    </div>
+
+    <!-- PHASE 1 WORKOUTS -->
+    <div style="margin-top:48px">
+      <div style="display:flex;align-items:center;gap:14px;margin-bottom:24px">
+        <span class="phase-badge badge-green" style="display:inline-block">Phase 1 — Foundation (Days 1–30)</span>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:32px">
+        <div class="phase-card" style="cursor:default">
+          <div class="phase-title" style="font-size:1rem;margin-bottom:14px">PUSH DAY (Mon)</div>
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <div style="display:flex;justify-content:space-between;font-size:0.88rem;padding:8px 12px;background:var(--surface2);border-radius:8px">
+              <span>Push-Ups</span><span style="color:var(--orange);font-weight:600">3 × 15</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;font-size:0.88rem;padding:8px 12px;background:var(--surface2);border-radius:8px">
+              <span>Diamond Push-Ups</span><span style="color:var(--orange);font-weight:600">3 × 10</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;font-size:0.88rem;padding:8px 12px;background:var(--surface2);border-radius:8px">
+              <span>Pike Push-Ups</span><span style="color:var(--orange);font-weight:600">3 × 10</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;font-size:0.88rem;padding:8px 12px;background:var(--surface2);border-radius:8px">
+              <span>Dips (chair)</span><span style="color:var(--orange);font-weight:600">3 × 12</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;font-size:0.88rem;padding:8px 12px;background:var(--surface2);border-radius:8px">
+              <span>Plank</span><span style="color:var(--orange);font-weight:600">3 × 45s</span>
+            </div>
+          </div>
+        </div>
+        <div class="phase-card" style="cursor:default">
+          <div class="phase-title" style="font-size:1rem;margin-bottom:14px">LEG DAY (Tue)</div>
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <div style="display:flex;justify-content:space-between;font-size:0.88rem;padding:8px 12px;background:var(--surface2);border-radius:8px">
+              <span>Squats</span><span style="color:var(--orange);font-weight:600">4 × 20</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;font-size:0.88rem;padding:8px 12px;background:var(--surface2);border-radius:8px">
+              <span>Lunges</span><span style="color:var(--orange);font-weight:600">3 × 12/leg</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;font-size:0.88rem;padding:8px 12px;background:var(--surface2);border-radius:8px">
+              <span>Glute Bridges</span><span style="color:var(--orange);font-weight:600">3 × 20</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;font-size:0.88rem;padding:8px 12px;background:var(--surface2);border-radius:8px">
+              <span>Calf Raises</span><span style="color:var(--orange);font-weight:600">4 × 25</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;font-size:0.88rem;padding:8px 12px;background:var(--surface2);border-radius:8px">
+              <span>Wall Sit</span><span style="color:var(--orange);font-weight:600">3 × 45s</span>
+            </div>
+          </div>
+        </div>
+        <div class="phase-card" style="cursor:default">
+          <div class="phase-title" style="font-size:1rem;margin-bottom:14px">PULL DAY (Wed)</div>
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <div style="display:flex;justify-content:space-between;font-size:0.88rem;padding:8px 12px;background:var(--surface2);border-radius:8px">
+              <span>Pull-Ups / Negatives</span><span style="color:var(--orange);font-weight:600">4 × max</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;font-size:0.88rem;padding:8px 12px;background:var(--surface2);border-radius:8px">
+              <span>Inverted Rows</span><span style="color:var(--orange);font-weight:600">3 × 12</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;font-size:0.88rem;padding:8px 12px;background:var(--surface2);border-radius:8px">
+              <span>Superman Hold</span><span style="color:var(--orange);font-weight:600">3 × 15</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;font-size:0.88rem;padding:8px 12px;background:var(--surface2);border-radius:8px">
+              <span>Towel Bicep Curls</span><span style="color:var(--orange);font-weight:600">3 × 15</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;font-size:0.88rem;padding:8px 12px;background:var(--surface2);border-radius:8px">
+              <span>Dead Hangs</span><span style="color:var(--orange);font-weight:600">3 × 30s</span>
+            </div>
+          </div>
+        </div>
+        <div class="phase-card" style="cursor:default">
+          <div class="phase-title" style="font-size:1rem;margin-bottom:14px">FULL BODY (Sat)</div>
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <div style="display:flex;justify-content:space-between;font-size:0.88rem;padding:8px 12px;background:var(--surface2);border-radius:8px">
+              <span>Burpees</span><span style="color:var(--orange);font-weight:600">4 × 10</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;font-size:0.88sym;padding:8px 12px;background:var(--surface2);border-radius:8px">
+              <span>Mountain Climbers</span><span style="color:var(--orange);font-weight:600">3 × 30s</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;font-size:0.88rem;padding:8px 12px;background:var(--surface2);border-radius:8px">
+              <span>Jump Squats</span><span style="color:var(--orange);font-weight:600">3 × 15</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;font-size:0.88rem;padding:8px 12px;background:var(--surface2);border-radius:8px">
+              <span>Push-Up to T</span><span style="color:var(--orange);font-weight:600">3 × 8/side</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;font-size:0.88rem;padding:8px 12px;background:var(--surface2);border-radius:8px">
+              <span>Hollow Body Hold</span><span style="color:var(--orange);font-weight:600">3 × 30s</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARDIO DAY -->
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:24px;margin-bottom:16px">
+        <div class="phase-title" style="font-size:1rem;margin-bottom:16px">CARDIO DAY (Fri) — Choose One</div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px">
+          <div style="background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:16px;text-align:center">
+            <div style="font-size:1.8rem;margin-bottom:8px">🏃</div>
+            <div style="font-family:'Barlow Condensed',sans-serif;font-size:0.95rem;font-weight:800;text-transform:uppercase;margin-bottom:4px">Run</div>
+            <div style="font-size:0.8rem;color:var(--muted)">30 min steady state</div>
+          </div>
+          <div style="background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:16px;text-align:center">
+            <div style="font-size:1.8rem;margin-bottom:8px">🚴</div>
+            <div style="font-family:'Barlow Condensed',sans-serif;font-size:0.95rem;font-weight:800;text-transform:uppercase;margin-bottom:4px">Cycle</div>
+            <div style="font-size:0.8rem;color:var(--muted)">45 min moderate pace</div>
+          </div>
+          <div style="background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:16px;text-align:center">
+            <div style="font-size:1.8rem;margin-bottom:8px">⚡</div>
+            <div style="font-family:'Barlow Condensed',sans-serif;font-size:0.95rem;font-weight:800;text-transform:uppercase;margin-bottom:4px">HIIT</div>
+            <div style="font-size:0.8rem;color:var(--muted)">20 min intervals</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ TRACKER PAGE ═══════════ -->
+<div id="page-tracker" class="page">
+  <div class="tracker-layout">
+    <div>
+      <!-- Day Progress -->
+      <div class="day-progress">
+        <div class="progress-header">
+          <div>
+            <div class="current-day-label">Current Progress</div>
+            <div class="current-day-num">Day <span id="currentDay">1</span> of 90</div>
+          </div>
+          <div style="display:flex;gap:10px">
+            <button onclick="changeDay(-1)" style="width:36px;height:36px;border-radius:8px;background:var(--surface2);border:1px solid var(--border);color:var(--text);cursor:pointer;font-size:1rem;transition:all 0.2s" onmouseover="this.style.borderColor='var(--orange)'" onmouseout="this.style.borderColor='var(--border)'">‹</button>
+            <button onclick="changeDay(1)" style="width:36px;height:36px;border-radius:8px;background:var(--surface2);border:1px solid var(--border);color:var(--text);cursor:pointer;font-size:1rem;transition:all 0.2s" onmouseover="this.style.borderColor='var(--orange)'" onmouseout="this.style.borderColor='var(--border)'">›</button>
+          </div>
+        </div>
+        <div class="progress-bar-wrap">
+          <div class="progress-bar-fill" id="progressFill" style="width:1.1%"></div>
+        </div>
+        <div class="progress-pct" id="progressPct">1.1% Complete</div>
+      </div>
+
+      <!-- Today's Workout -->
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:24px">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:1.1rem;font-weight:800;text-transform:uppercase">Today's Workout</div>
+          <span class="phase-badge badge-green" id="todayPhase">Phase 1 — Foundation</span>
+        </div>
+        <div class="workout-list" id="workoutList">
+          <div class="workout-item" onclick="toggleWorkout(this)">
+            <div class="check-circle">✓</div>
+            <div class="workout-name">Push-Ups</div>
+            <div class="workout-reps">3 × 15</div>
+          </div>
+          <div class="workout-item" onclick="toggleWorkout(this)">
+            <div class="check-circle">✓</div>
+            <div class="workout-name">Diamond Push-Ups</div>
+            <div class="workout-reps">3 × 10</div>
+          </div>
+          <div class="workout-item" onclick="toggleWorkout(this)">
+            <div class="check-circle">✓</div>
+            <div class="workout-name">Pike Push-Ups</div>
+            <div class="workout-reps">3 × 10</div>
+          </div>
+          <div class="workout-item" onclick="toggleWorkout(this)">
+            <div class="check-circle">✓</div>
+            <div class="workout-name">Dips (chair)</div>
+            <div class="workout-reps">3 × 12</div>
+          </div>
+          <div class="workout-item" onclick="toggleWorkout(this)">
+            <div class="check-circle">✓</div>
+            <div class="workout-name">Plank</div>
+            <div class="workout-reps">3 × 45s</div>
+          </div>
+        </div>
+        <button onclick="completeDay()" style="width:100%;margin-top:16px;padding:13px;background:var(--green);border:none;border-radius:10px;color:#000;font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:800;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer;transition:all 0.2s" onmouseover="this.style.filter='brightness(1.1)'" onmouseout="this.style.filter='none'">Mark Day Complete ✓</button>
+      </div>
+    </div>
+
+    <!-- SIDEBAR -->
+    <div class="stats-sidebar">
+      <div class="stat-card">
+        <div class="stat-card-label">Days Completed</div>
+        <div class="stat-card-value" id="daysCompleted" style="color:var(--orange)">0</div>
+        <div class="stat-card-sub">out of 90 days</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-label">Current Streak</div>
+        <div class="stat-card-value" id="currentStreak" style="color:var(--yellow)">0 🔥</div>
+        <div class="stat-card-sub">consecutive days</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-label">Current Phase</div>
+        <div class="stat-card-value" style="font-size:1.8rem" id="phaseNum">1</div>
+        <div class="stat-card-sub" id="phaseName">Foundation</div>
+      </div>
+
+      <!-- 90-Day Calendar -->
+      <div class="stat-card">
+        <div class="stat-card-label" style="margin-bottom:12px">90-Day Calendar</div>
+        <div class="streak-grid" id="streakGrid"></div>
+        <div style="display:flex;gap:8px;margin-top:12px;font-size:11px;color:var(--muted)">
+          <span style="display:flex;align-items:center;gap:4px"><span style="width:10px;height:10px;background:var(--orange);border-radius:2px;display:inline-block"></span>Done</span>
+          <span style="display:flex;align-items:center;gap:4px"><span style="width:10px;height:10px;background:var(--surface2);border:1px solid var(--border);border-radius:2px;display:inline-block"></span>Upcoming</span>
+        </div>
+      </div>
+
+      <!-- BMI Quick Calc -->
+      <div class="stat-card">
+        <div class="stat-card-label" style="margin-bottom:14px">Quick BMI Check</div>
+        <div style="display:flex;gap:10px;margin-bottom:10px">
+          <div style="flex:1">
+            <div style="font-size:10px;color:var(--muted);margin-bottom:4px;font-family:'Barlow Condensed',sans-serif;font-weight:700;letter-spacing:0.08em;text-transform:uppercase">Weight (kg)</div>
+            <input id="bmiW" type="number" placeholder="75" style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:9px 11px;color:var(--text);font-family:'Barlow',sans-serif;font-size:0.92rem;outline:none" oninput="calcBmi()">
+          </div>
+          <div style="flex:1">
+            <div style="font-size:10px;color:var(--muted);margin-bottom:4px;font-family:'Barlow Condensed',sans-serif;font-weight:700;letter-spacing:0.08em;text-transform:uppercase">Height (cm)</div>
+            <input id="bmiH" type="number" placeholder="175" style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:9px 11px;color:var(--text);font-family:'Barlow',sans-serif;font-size:0.92rem;outline:none" oninput="calcBmi()">
+          </div>
+        </div>
+        <div id="bmResult" style="display:none;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:12px;text-align:center">
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:2rem;font-weight:900" id="bmVal">-</div>
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:0.85rem;font-weight:700;text-transform:uppercase;margin-top:2px" id="bmCat">-</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ EXERCISES PAGE ═══════════ -->
+<div id="page-exercises" class="page">
+  <div class="section-wrap">
+    <div class="section-label">Exercise Library</div>
+    <div class="section-title">Master Every Movement</div>
+    <div class="section-sub">Every exercise in the program — with instructions, muscles targeted, and difficulty.</div>
+
+    <div class="exercise-filters">
+      <button class="filter-btn active" onclick="filterEx(this,'all')">All</button>
+      <button class="filter-btn" onclick="filterEx(this,'push')">Push</button>
+      <button class="filter-btn" onclick="filterEx(this,'pull')">Pull</button>
+      <button class="filter-btn" onclick="filterEx(this,'legs')">Legs</button>
+      <button class="filter-btn" onclick="filterEx(this,'core')">Core</button>
+      <button class="filter-btn" onclick="filterEx(this,'cardio')">Cardio</button>
+    </div>
+
+    <div class="exercise-grid" id="exerciseGrid"></div>
+  </div>
+</div>
+
+<!-- ═══════════ NUTRITION PAGE ═══════════ -->
+<div id="page-nutrition" class="page">
+  <div class="section-wrap">
+    <div class="section-label">Fuel Your Transformation</div>
+    <div class="section-title">Nutrition Guide</div>
+    <div class="section-sub">What you eat is 70% of your results. Here are the meals that will power your 90 days.</div>
+
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:36px">
+      <div style="background:var(--surface);padding:22px;text-align:center">
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:2rem;font-weight:900;color:var(--orange)">2,200</div>
+        <div style="font-size:0.82rem;color:var(--muted);margin-top:2px">Calories/day (cut)</div>
+      </div>
+      <div style="background:var(--surface);padding:22px;text-align:center">
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:2rem;font-weight:900;color:var(--green)">180g</div>
+        <div style="font-size:0.82rem;color:var(--muted);margin-top:2px">Protein target</div>
+      </div>
+      <div style="background:var(--surface);padding:22px;text-align:center">
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:2rem;font-weight:900;color:var(--blue)">3L</div>
+        <div style="font-size:0.82rem;color:var(--muted);margin-top:2px">Water/day</div>
+      </div>
+    </div>
+
+    <div class="nutrition-grid">
+      <div class="nutrition-card">
+        <div class="nutrition-header">
+          <div class="nutrition-icon">🍳</div>
+          <div class="nutrition-title">Breakfast — Power Start</div>
+          <div class="nutrition-cal">~500 kcal · Pre or post morning workout</div>
+        </div>
+        <div class="nutrition-body">
+          <div class="macro-row"><span class="macro-name">Oats + banana + protein powder</span><span class="macro-val">✓</span></div>
+          <div class="macro-row"><span class="macro-name">4 eggs + whole grain toast</span><span class="macro-val">✓</span></div>
+          <div class="macro-row"><span class="macro-name">Greek yogurt + berries + honey</span><span class="macro-val">✓</span></div>
+          <div class="macro-row"><span class="macro-name">Protein</span><span class="macro-val" style="color:var(--green)">40g</span></div>
+          <div class="macro-row"><span class="macro-name">Carbs</span><span class="macro-val" style="color:var(--orange)">55g</span></div>
+          <div class="macro-row"><span class="macro-name">Fats</span><span class="macro-val" style="color:var(--blue)">12g</span></div>
+        </div>
+      </div>
+      <div class="nutrition-card">
+        <div class="nutrition-header">
+          <div class="nutrition-icon">🍗</div>
+          <div class="nutrition-title">Lunch — Fuel Up</div>
+          <div class="nutrition-cal">~700 kcal · Biggest meal of the day</div>
+        </div>
+        <div class="nutrition-body">
+          <div class="macro-row"><span class="macro-name">Chicken breast + rice + veggies</span><span class="macro-val">✓</span></div>
+          <div class="macro-row"><span class="macro-name">Tuna salad + whole grain bread</span><span class="macro-val">✓</span></div>
+          <div class="macro-row"><span class="macro-name">Beef + sweet potato + greens</span><span class="macro-val">✓</span></div>
+          <div class="macro-row"><span class="macro-name">Protein</span><span class="macro-val" style="color:var(--green)">55g</span></div>
+          <div class="macro-row"><span class="macro-name">Carbs</span><span class="macro-val" style="color:var(--orange)">80g</span></div>
+          <div class="macro-row"><span class="macro-name">Fats</span><span class="macro-val" style="color:var(--blue)">18g</span></div>
+        </div>
+      </div>
+      <div class="nutrition-card">
+        <div class="nutrition-header">
+          <div class="nutrition-icon">🥗</div>
+          <div class="nutrition-title">Dinner — Recover</div>
+          <div class="nutrition-cal">~600 kcal · Light on carbs at night</div>
+        </div>
+        <div class="nutrition-body">
+          <div class="macro-row"><span class="macro-name">Salmon + broccoli + quinoa</span><span class="macro-val">✓</span></div>
+          <div class="macro-row"><span class="macro-name">Turkey mince + mixed veggies</span><span class="macro-val">✓</span></div>
+          <div class="macro-row"><span class="macro-name">Lentil soup + whole grain bread</span><span class="macro-val">✓</span></div>
+          <div class="macro-row"><span class="macro-name">Protein</span><span class="macro-val" style="color:var(--green)">50g</span></div>
+          <div class="macro-row"><span class="macro-name">Carbs</span><span class="macro-val" style="color:var(--orange)">40g</span></div>
+          <div class="macro-row"><span class="macro-name">Fats</span><span class="macro-val" style="color:var(--blue)">20g</span></div>
+        </div>
+      </div>
+      <div class="nutrition-card">
+        <div class="nutrition-header">
+          <div class="nutrition-icon">🥜</div>
+          <div class="nutrition-title">Snacks — Keep it Clean</div>
+          <div class="nutrition-cal">~400 kcal · 2x per day max</div>
+        </div>
+        <div class="nutrition-body">
+          <div class="macro-row"><span class="macro-name">Handful of almonds + apple</span><span class="macro-val">✓</span></div>
+          <div class="macro-row"><span class="macro-name">Cottage cheese + cucumber</span><span class="macro-val">✓</span></div>
+          <div class="macro-row"><span class="macro-name">Protein shake + banana</span><span class="macro-val">✓</span></div>
+          <div class="macro-row"><span class="macro-name">Rice cakes + peanut butter</span><span class="macro-val">✓</span></div>
+          <div class="macro-row"><span class="macro-name">Hard boiled eggs</span><span class="macro-val">✓</span></div>
+        </div>
+      </div>
+      <div class="nutrition-card">
+        <div class="nutrition-header">
+          <div class="nutrition-icon">🚫</div>
+          <div class="nutrition-title">Avoid These</div>
+          <div class="nutrition-cal">Cut these out completely for 90 days</div>
+        </div>
+        <div class="nutrition-body">
+          <div class="macro-row"><span class="macro-name">Alcohol</span><span class="macro-val" style="color:var(--red)">✗</span></div>
+          <div class="macro-row"><span class="macro-name">Sugary drinks & soda</span><span class="macro-val" style="color:var(--red)">✗</span></div>
+          <div class="macro-row"><span class="macro-name">Deep fried foods</span><span class="macro-val" style="color:var(--red)">✗</span></div>
+          <div class="macro-row"><span class="macro-name">White bread & pasta</span><span class="macro-val" style="color:var(--red)">✗</span></div>
+          <div class="macro-row"><span class="macro-name">Processed snacks</span><span class="macro-val" style="color:var(--red)">✗</span></div>
+        </div>
+      </div>
+      <div class="nutrition-card">
+        <div class="nutrition-header">
+          <div class="nutrition-icon">💊</div>
+          <div class="nutrition-title">Supplements (Optional)</div>
+          <div class="nutrition-cal">Only if diet isn't enough</div>
+        </div>
+        <div class="nutrition-body">
+          <div class="macro-row"><span class="macro-name">Whey Protein</span><span class="macro-val" style="color:var(--green)">✓</span></div>
+          <div class="macro-row"><span class="macro-name">Creatine Monohydrate</span><span class="macro-val" style="color:var(--green)">✓</span></div>
+          <div class="macro-row"><span class="macro-name">Vitamin D3</span><span class="macro-val" style="color:var(--green)">✓</span></div>
+          <div class="macro-row"><span class="macro-name">Omega-3 Fish Oil</span><span class="macro-val" style="color:var(--green)">✓</span></div>
+          <div class="macro-row"><span class="macro-name">Magnesium</span><span class="macro-val" style="color:var(--green)">✓</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ TIPS PAGE ═══════════ -->
+<div id="page-tips" class="page">
+  <div class="section-wrap">
+    <div class="section-label">Knowledge is Power</div>
+    <div class="section-title">Pro Tips & Rules</div>
+    <div class="section-sub">The rules that separate people who finish from people who quit.</div>
+
+    <div class="tips-grid">
+      <div class="tip-card tip-orange"><div class="tip-num">Rule 01</div><div class="tip-title">Never Miss Monday</div><div class="tip-body">Starting the week strong sets your momentum for every day after. Missing Monday is the first domino that knocks everything else over. No exceptions.</div></div>
+      <div class="tip-card tip-green"><div class="tip-num">Rule 02</div><div class="tip-title">Sleep 7–9 Hours</div><div class="tip-body">Muscle is built during sleep, not during training. If you're skipping sleep, you're throwing away half your results. Prioritize sleep like a second workout.</div></div>
+      <div class="tip-card tip-blue"><div class="tip-num">Rule 03</div><div class="tip-title">Progress Over Perfection</div><div class="tip-body">A bad workout is infinitely better than no workout. Showing up on your worst day is what builds discipline. Perfection is the enemy of consistency.</div></div>
+      <div class="tip-card tip-yellow"><div class="tip-num">Rule 04</div><div class="tip-title">Track Everything</div><div class="tip-body">Take weekly photos. Measure your waist. Log your reps. Numbers don't lie. When you feel like quitting, your data will show you how far you've come.</div></div>
+      <div class="tip-card tip-orange"><div class="tip-num">Rule 05</div><div class="tip-title">Warm Up Every Time</div><div class="tip-body">5–10 minutes of dynamic warm-up before every session. Injuries are the #1 reason people quit. One torn muscle can set you back months. Protect yourself.</div></div>
+      <div class="tip-card tip-green"><div class="tip-num">Rule 06</div><div class="tip-title">Drink 3L of Water Daily</div><div class="tip-body">Dehydration kills performance, recovery, and focus. Before you think you're hungry, drink water. Before every workout, drink water. Keep a bottle with you always.</div></div>
+      <div class="tip-card tip-blue"><div class="tip-num">Rule 07</div><div class="tip-title">Form Before Weight</div><div class="tip-body">10 perfect reps beats 20 sloppy ones every single time. Bad form means injury and zero muscle activation. Slow down, feel the muscle, earn the movement.</div></div>
+      <div class="tip-card tip-yellow"><div class="tip-num">Rule 08</div><div class="tip-title">Rest Days Are Sacred</div><div class="tip-body">Active recovery on rest days — walk, stretch, foam roll. Your muscles grow during rest, not during training. Killing yourself 7 days a week leads to burnout.</div></div>
+      <div class="tip-card tip-orange"><div class="tip-num">Rule 09</div><div class="tip-title">Protein Every Meal</div><div class="tip-body">Hit 1.6–2g of protein per kg of bodyweight every day. Protein feeds your muscles, keeps you full, and prevents muscle loss while cutting. No exceptions.</div></div>
+      <div class="tip-card tip-red" style="border-left-color:var(--red)"><div class="tip-num">Rule 10</div><div class="tip-title">Day 1 to Day 90</div><div class="tip-body">The hardest part is Day 1 and the days right before quitting. Once you get past Day 30, momentum kicks in. Trust the process. The results are waiting at the finish line.</div></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const EXERCISES = [
+  {name:"Push-Up",muscle:"Chest, Triceps, Shoulders",cat:"push",icon:"💪",bg:"#ff6b2b18",color:"#ff6b2b",desc:"Classic bodyweight exercise. Keep core tight, elbows at 45°. Lower until chest nearly touches floor.",tags:["Beginner","No Equipment"],diff:"Beginner"},
+  {name:"Diamond Push-Up",muscle:"Triceps, Inner Chest",cat:"push",icon:"💎",bg:"#ff6b2b18",color:"#ff6b2b",desc:"Hands form diamond shape. Isolates triceps heavily. Keep elbows tucked close to body.",tags:["Intermediate","Tricep Focused"],diff:"Intermediate"},
+  {name:"Pike Push-Up",muscle:"Shoulders, Triceps",cat:"push",icon:"⬆️",bg:"#ff6b2b18",color:"#ff6b2b",desc:"Hips up, inverted V shape. Builds overhead pressing strength. Great shoulder developer.",tags:["Intermediate","Shoulder Builder"],diff:"Intermediate"},
+  {name:"Pull-Up",muscle:"Back, Biceps",cat:"pull",icon:"🔝",bg:"#0a84ff18",color:"#0a84ff",desc:"King of upper body exercises. Full range of motion. Start from dead hang, pull until chin over bar.",tags:["Intermediate","Full Back"],diff:"Intermediate"},
+  {name:"Inverted Row",muscle:"Upper Back, Biceps",cat:"pull",icon:"🔙",bg:"#0a84ff18",color:"#0a84ff",desc:"Lie under table or bar. Pull chest to bar. Horizontal pull pattern. Great beginner back exercise.",tags:["Beginner","Back"],diff:"Beginner"},
+  {name:"Squat",muscle:"Quads, Glutes, Hamstrings",cat:"legs",icon:"🦵",bg:"#30d15818",color:"#30d158",desc:"Queen of lower body. Feet shoulder-width apart. Drive knees out, sit back, keep chest up.",tags:["Beginner","Compound"],diff:"Beginner"},
+  {name:"Bulgarian Split Squat",muscle:"Quads, Glutes",cat:"legs",icon:"🏋️",bg:"#30d15818",color:"#30d158",desc:"Rear foot elevated. Tests balance and unilateral strength. Exposes strength imbalances.",tags:["Advanced","Unilateral"],diff:"Advanced"},
+  {name:"Burpee",muscle:"Full Body",cat:"cardio",icon:"⚡",bg:"#ffd60a18",color:"#ffd60a",desc:"The ultimate conditioning exercise. Squat, kick back, push-up, jump. No equipment full-body blast.",tags:["Intermediate","Cardio"],diff:"Intermediate"},
+  {name:"Mountain Climber",muscle:"Core, Shoulders, Hip Flexors",cat:"cardio",icon:"🏔️",bg:"#ffd60a18",color:"#ffd60a",desc:"High plank position. Drive knees to chest alternating. Cardio + core combined.",tags:["Beginner","Core+Cardio"],diff:"Beginner"},
+  {name:"Plank",muscle:"Core, Full Body",cat:"core",icon:"📏",bg:"#ec489918",color:"#ec4899",desc:"Forearms or hands, straight line from head to heel. Brace every muscle. The ultimate core foundation.",tags:["Beginner","Core"],diff:"Beginner"},
+  {name:"L-Sit Hold",muscle:"Core, Triceps, Hip Flexors",cat:"core",icon:"🔷",bg:"#ec489918",color:"#ec4899",desc:"Advanced core compression hold. Legs parallel to ground. Build up gradually from tuck position.",tags:["Advanced","Compression"],diff:"Advanced"},
+  {name:"Jump Squat",muscle:"Quads, Glutes, Calves",cat:"legs",icon:"🚀",bg:"#30d15818",color:"#30d158",desc:"Squat then explode upward. Land softly. Builds explosive power and burns maximum calories.",tags:["Intermediate","Explosive"],diff:"Intermediate"},
+  {name:"Hollow Body Hold",muscle:"Core, Hip Flexors",cat:"core",icon:"🌙",bg:"#ec489918",color:"#ec4899",desc:"Lie on back. Compress lower back into floor. Arms overhead, legs raised. The gymnastic core foundation.",tags:["Intermediate","Gymnastic Core"],diff:"Intermediate"},
+  {name:"Superman Hold",muscle:"Lower Back, Glutes",cat:"pull",icon:"🦸",bg:"#0a84ff18",color:"#0a84ff",desc:"Lie face down. Lift arms and legs simultaneously. Essential posterior chain developer.",tags:["Beginner","Back"],diff:"Beginner"},
+  {name:"Dip (Chair)",muscle:"Triceps, Chest",cat:"push",icon:"🪑",bg:"#ff6b2b18",color:"#ff6b2b",desc:"Hands on chair behind you. Lower until 90°. Targets triceps and lower chest heavily.",tags:["Beginner","Triceps"],diff:"Beginner"},
+];
+
+let currentDay = 1;
+let completedDays = new Set();
+let currentFilter = 'all';
+
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('page-' + id).classList.add('active');
+  const btns = document.querySelectorAll('.nav-btn');
+  const pages = ['home','plan','tracker','exercises','nutrition','tips'];
+  const idx = pages.indexOf(id);
+  if(idx >= 0) btns[idx].classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function changeDay(dir) {
+  currentDay = Math.max(1, Math.min(90, currentDay + dir));
+  updateTrackerUI();
+}
+
+function updateTrackerUI() {
+  document.getElementById('currentDay').textContent = currentDay;
+  const pct = ((currentDay - 1) / 90 * 100).toFixed(1);
+  document.getElementById('progressFill').style.width = Math.max(1.1, pct) + '%';
+  document.getElementById('progressPct').textContent = pct + '% Complete';
+  document.getElementById('daysCompleted').textContent = completedDays.size;
+
+  const phase = currentDay <= 30 ? 1 : currentDay <= 60 ? 2 : 3;
+  const phaseNames = {1:'Foundation',2:'Intensity',3:'Shred'};
+  const phaseBadges = {1:'badge-green',2:'badge-orange',3:'badge-red'};
+  document.getElementById('phaseNum').textContent = phase;
+  document.getElementById('phaseName').textContent = phaseNames[phase];
+  document.getElementById('todayPhase').textContent = 'Phase ' + phase + ' — ' + phaseNames[phase];
+  document.getElementById('todayPhase').className = 'phase-badge ' + phaseBadges[phase];
+
+  // Streak
+  let streak = 0;
+  for(let d = currentDay; d >= 1; d--) {
+    if(completedDays.has(d)) streak++;
+    else break;
+  }
+  document.getElementById('currentStreak').textContent = streak + ' 🔥';
+
+  updateStreakGrid();
+}
+
+function updateStreakGrid() {
+  const grid = document.getElementById('streakGrid');
+  grid.innerHTML = '';
+  for(let d = 1; d <= 90; d++) {
+    const cell = document.createElement('div');
+    cell.className = 'streak-cell';
+    if(completedDays.has(d)) cell.classList.add('done');
+    if(d === currentDay) cell.classList.add('today');
+    cell.title = 'Day ' + d;
+    grid.appendChild(cell);
+  }
+}
+
+function toggleWorkout(el) {
+  el.classList.toggle('done');
+}
+
+function completeDay() {
+  completedDays.add(currentDay);
+  document.querySelectorAll('.workout-item').forEach(el => el.classList.add('done'));
+  updateTrackerUI();
+  if(currentDay < 90) {
+    setTimeout(() => {
+      currentDay++;
+      document.querySelectorAll('.workout-item').forEach(el => el.classList.remove('done'));
+      updateTrackerUI();
+    }, 800);
+  }
+}
+
+function calcBmi() {
+  const w = parseFloat(document.getElementById('bmiW').value);
+  const h = parseFloat(document.getElementById('bmiH').value) / 100;
+  if(!w || !h || h <= 0) { document.getElementById('bmResult').style.display='none'; return; }
+  const bmi = (w / (h * h)).toFixed(1);
+  let cat, col;
+  if(bmi < 18.5) { cat = 'Underweight'; col = '#0a84ff'; }
+  else if(bmi < 25) { cat = 'Normal Weight'; col = '#30d158'; }
+  else if(bmi < 30) { cat = 'Overweight'; col = '#ffd60a'; }
+  else { cat = 'Obese'; col = '#ff453a'; }
+  document.getElementById('bmVal').textContent = bmi;
+  document.getElementById('bmVal').style.color = col;
+  document.getElementById('bmCat').textContent = cat;
+  document.getElementById('bmCat').style.color = col;
+  document.getElementById('bmResult').style.display = 'block';
+}
+
+function filterEx(btn, cat) {
+  currentFilter = cat;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderExercises();
+}
+
+function renderExercises() {
+  const grid = document.getElementById('exerciseGrid');
+  grid.innerHTML = '';
+  const filtered = currentFilter === 'all' ? EXERCISES : EXERCISES.filter(e => e.cat === currentFilter);
+  filtered.forEach((ex, i) => {
+    const card = document.createElement('div');
+    card.className = 'ex-card fade-in';
+    card.style.animationDelay = (i * 0.05) + 's';
+    card.innerHTML = `
+      <div class="ex-header">
+        <div class="ex-icon" style="background:${ex.bg};border:1px solid ${ex.color}44">${ex.icon}</div>
+        <div>
+          <div class="ex-name">${ex.name}</div>
+          <div class="ex-muscle">${ex.muscle}</div>
+        </div>
+      </div>
+      <div class="ex-desc">${ex.desc}</div>
+      <div class="ex-tags">
+        ${ex.tags.map(t => `<span class="ex-tag" style="background:${ex.bg};color:${ex.color};border:1px solid ${ex.color}44">${t}</span>`).join('')}
+      </div>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+// Init
+updateStreakGrid();
+renderExercises();
+</script>
+</body>
+</html>
