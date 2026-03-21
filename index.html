@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>90-Day Fitness Challenge</title>
+<title>90 Day Beast – Free + Pro Transformation System</title>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800;900&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -27,6 +27,201 @@
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
+
+/* ── LOGIN MODAL ── */
+.modal-overlay {
+  position: fixed; inset: 0; z-index: 9999;
+  background: rgba(0,0,0,0.75);
+  backdrop-filter: blur(12px);
+  display: flex; align-items: center; justify-content: center;
+  padding: 20px;
+  opacity: 1; transition: opacity 0.3s;
+}
+
+.modal-overlay.hidden { display: none; }
+
+.modal-box {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 44px 40px;
+  width: 100%; max-width: 420px;
+  position: relative;
+  animation: modal-in 0.35s cubic-bezier(0.34,1.56,0.64,1);
+}
+
+@keyframes modal-in {
+  from { opacity: 0; transform: scale(0.88) translateY(24px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.modal-close {
+  position: absolute; top: 16px; right: 16px;
+  background: var(--surface2); border: 1px solid var(--border);
+  color: var(--muted); width: 32px; height: 32px;
+  border-radius: 50%; font-size: 1rem; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.2s;
+}
+.modal-close:hover { color: var(--text); border-color: var(--orange); }
+
+.modal-logo {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1.4rem; font-weight: 900;
+  letter-spacing: 0.04em; text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.modal-logo span { color: var(--orange); }
+
+.modal-tagline {
+  font-size: 0.85rem; color: var(--muted);
+  margin-bottom: 30px;
+}
+
+.modal-tabs {
+  display: flex; gap: 0;
+  background: var(--surface2);
+  border-radius: 10px; padding: 4px;
+  margin-bottom: 28px;
+}
+
+.modal-tab {
+  flex: 1; background: none; border: none;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.9rem; font-weight: 700;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--muted); padding: 9px; border-radius: 8px;
+  cursor: pointer; transition: all 0.2s;
+}
+
+.modal-tab.active {
+  background: var(--orange); color: #fff;
+}
+
+.modal-form { display: flex; flex-direction: column; gap: 14px; }
+.modal-form.hidden { display: none; }
+
+.form-group { display: flex; flex-direction: column; gap: 6px; }
+
+.form-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.78rem; font-weight: 700;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--muted);
+}
+
+.form-input {
+  background: var(--surface2);
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  color: var(--text);
+  font-family: 'Barlow', sans-serif;
+  font-size: 0.95rem;
+  padding: 11px 14px;
+  transition: border-color 0.2s;
+  outline: none;
+}
+.form-input:focus { border-color: var(--orange); }
+.form-input::placeholder { color: var(--muted); }
+
+.form-submit {
+  background: var(--orange); color: #fff; border: none;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1rem; font-weight: 700;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  padding: 13px; border-radius: 10px;
+  cursor: pointer; transition: all 0.2s;
+  margin-top: 4px;
+}
+.form-submit:hover { background: #ff7d44; transform: translateY(-1px); box-shadow: 0 6px 20px #ff6b2b44; }
+
+.form-divider {
+  display: flex; align-items: center; gap: 10px;
+  color: var(--muted); font-size: 0.8rem; margin: 4px 0;
+}
+.form-divider::before, .form-divider::after {
+  content: ''; flex: 1; height: 1px; background: var(--border);
+}
+
+.form-google {
+  background: var(--surface2); color: var(--text);
+  border: 1.5px solid var(--border);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.95rem; font-weight: 700;
+  letter-spacing: 0.04em; text-transform: uppercase;
+  padding: 11px; border-radius: 10px;
+  cursor: pointer; transition: all 0.2s;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+}
+.form-google:hover { border-color: var(--orange); color: var(--orange); }
+
+.form-forgot {
+  text-align: right; font-size: 0.8rem; color: var(--muted);
+  cursor: pointer; transition: color 0.2s;
+}
+.form-forgot:hover { color: var(--orange); }
+
+.modal-user-bar {
+  display: flex; align-items: center; gap: 10px;
+  cursor: pointer;
+}
+
+.user-avatar {
+  width: 34px; height: 34px; border-radius: 50%;
+  background: var(--orange-bg);
+  border: 1.5px solid var(--orange);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.9rem; font-weight: 700; color: var(--orange);
+  font-family: 'Barlow Condensed', sans-serif;
+}
+
+.user-name {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.9rem; font-weight: 700;
+  letter-spacing: 0.04em; color: var(--text);
+}
+
+.nav-login-btn {
+  background: var(--orange);
+  color: #fff; border: none;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.85rem; font-weight: 700;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  padding: 8px 18px; border-radius: 8px;
+  cursor: pointer; transition: all 0.2s;
+}
+.nav-login-btn:hover { background: #ff7d44; }
+
+.nav-pro-btn {
+  background: linear-gradient(135deg, #ffd60a, #ff9500);
+  color: #000; border: none;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.85rem; font-weight: 800;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  padding: 8px 18px; border-radius: 8px;
+  cursor: pointer; transition: all 0.2s;
+  display: flex; align-items: center; gap: 6px;
+}
+.nav-pro-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 20px #ffd60a55; filter: brightness(1.1); }
+.nav-pro-btn .pro-icon { font-size: 0.9rem; pointer-events: none; }
+
+.toast {
+  position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--green);
+  border-radius: 10px;
+  padding: 12px 22px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.95rem; font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--text);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+  z-index: 99999;
+  animation: toast-in 0.3s ease, toast-out 0.3s ease 2.5s forwards;
+}
+@keyframes toast-in  { from { opacity:0; transform: translateX(-50%) translateY(16px); } to { opacity:1; transform: translateX(-50%) translateY(0); } }
+@keyframes toast-out { from { opacity:1; } to { opacity:0; } }
 
 body {
   font-family: 'Barlow', sans-serif;
@@ -681,8 +876,296 @@ footer {
 }
 
 /* ── ANIMATIONS ── */
-.fade-in { animation: fadeIn 0.5s ease both; }
-@keyframes fadeIn { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+.fade-in { animation: fadeIn 0.6s ease both; }
+@keyframes fadeIn    { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+@keyframes slideUp   { from { opacity:0; transform:translateY(40px); } to { opacity:1; transform:translateY(0); } }
+@keyframes popIn     { from { opacity:0; transform:scale(0.82); } to { opacity:1; transform:scale(1); } }
+@keyframes floatY    { 0%,100% { transform:translateY(0px); } 50% { transform:translateY(-9px); } }
+@keyframes glowPulse { 0%,100% { box-shadow:0 0 0 transparent; } 50% { box-shadow:0 0 32px #ff6b2b55; } }
+@keyframes shimmerBg { 0% { background-position:-200% center; } 100% { background-position:200% center; } }
+@keyframes fadeInLeft{ from { opacity:0; transform:translateX(-24px); } to { opacity:1; transform:translateX(0); } }
+@keyframes scaleIn   { from { opacity:0; transform:scale(0.6); } to { opacity:1; transform:scale(1); } }
+
+.anim-up    { animation: slideUp 0.7s cubic-bezier(.22,1,.36,1) both; }
+.anim-up-2  { animation: slideUp 0.7s cubic-bezier(.22,1,.36,1) 0.1s both; }
+.anim-up-3  { animation: slideUp 0.7s cubic-bezier(.22,1,.36,1) 0.2s both; }
+.anim-up-4  { animation: slideUp 0.7s cubic-bezier(.22,1,.36,1) 0.3s both; }
+.anim-pop   { animation: popIn  0.55s cubic-bezier(.34,1.56,.64,1) both; }
+.anim-pop-2 { animation: popIn  0.55s cubic-bezier(.34,1.56,.64,1) 0.1s both; }
+.anim-pop-3 { animation: popIn  0.55s cubic-bezier(.34,1.56,.64,1) 0.2s both; }
+.anim-float { animation: floatY 3.8s ease-in-out infinite; }
+.anim-float-2 { animation: floatY 3.8s ease-in-out 1s infinite; }
+.anim-float-3 { animation: floatY 3.8s ease-in-out 2s infinite; }
+.anim-float-4 { animation: floatY 3.8s ease-in-out 3s infinite; }
+.anim-glow  { animation: glowPulse 2.8s ease-in-out infinite; }
+.anim-left  { animation: fadeInLeft 0.6s ease both; }
+.anim-scale { animation: scaleIn 0.5s cubic-bezier(.34,1.56,.64,1) both; }
+
+/* ── HERO IMAGE STRIP — seamless / no borders ── */
+.hero-images {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  height: 240px;
+  overflow: hidden;
+  position: relative;
+  margin-bottom: 0;
+}
+.hero-img-cell {
+  position: relative;
+  overflow: hidden;
+  display: flex; align-items: center; justify-content: center;
+  transition: filter 0.35s, transform 0.35s;
+}
+.hero-img-cell:hover { filter: brightness(1.25); }
+.hero-img-cell:hover svg { transform: scale(1.08); }
+.hero-img-cell svg { transition: transform 0.4s ease; }
+
+/* top+bottom fade: blends seamlessly with sections above & below */
+.hero-images::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(to bottom,
+    var(--bg) 0%,
+    transparent 28%,
+    transparent 68%,
+    var(--bg) 100%
+  );
+  pointer-events: none; z-index: 2;
+}
+/* left+right edges also dissolve */
+.hero-images::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(to right,
+    var(--bg) 0%,
+    transparent 6%,
+    transparent 94%,
+    var(--bg) 100%
+  );
+  pointer-events: none; z-index: 3;
+}
+/* label: centered, bold, no boundary feeling */
+.hero-img-cell .img-label {
+  position: absolute; bottom: 22px; left: 50%;
+  transform: translateX(-50%);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.95rem; font-weight: 900;
+  letter-spacing: 0.26em; text-transform: uppercase;
+  color: rgba(255,255,255,0.95);
+  text-shadow: 0 2px 16px rgba(0,0,0,0.9), 0 0 8px rgba(0,0,0,0.6);
+  z-index: 4;
+  white-space: nowrap;
+}
+
+/* ── MOTIVATIONAL BANNER ── */
+.motive-banner {
+  background: linear-gradient(135deg, #ff6b2b18 0%, #0c0c0e 50%, #ffd60a10 100%);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 36px 28px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.motive-banner::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 60% 80% at 50% 50%, #ff6b2b0a 0%, transparent 70%);
+}
+.motive-quote {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: clamp(1.6rem, 4vw, 2.6rem);
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  line-height: 1.15;
+  position: relative;
+  z-index: 1;
+}
+.motive-quote em {
+  font-style: normal;
+  color: var(--orange);
+}
+.motive-sub {
+  font-size: 0.92rem;
+  color: var(--muted);
+  margin-top: 10px;
+  position: relative; z-index: 1;
+}
+
+/* ── STAT TICKER ── */
+.stat-ticker {
+  display: flex;
+  overflow: hidden;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+}
+.ticker-track {
+  display: flex;
+  gap: 0;
+  animation: ticker 30s linear infinite;
+  white-space: nowrap;
+}
+@keyframes ticker {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.ticker-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 13px 36px;
+  border-right: 1px solid var(--border);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.82rem; font-weight: 700;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--muted);
+  flex-shrink: 0;
+}
+.ticker-item span { color: var(--orange); }
+
+/* ── PRO LOCK BANNER (tracker) ── */
+.pro-lock-banner {
+  background: linear-gradient(135deg, #ffd60a12, #ff6b2b12);
+  border: 1px solid #ffd60a33;
+  border-radius: var(--radius);
+  padding: 20px 24px;
+  margin-bottom: 16px;
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+}
+.pro-lock-text {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1rem; font-weight: 800;
+  text-transform: uppercase; letter-spacing: 0.04em;
+}
+.pro-lock-sub {
+  font-size: 0.8rem; color: var(--muted); margin-top: 3px;
+}
+.pro-lock-cta {
+  background: linear-gradient(135deg, #ffd60a, #ff9500);
+  color: #000; border: none;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.85rem; font-weight: 800;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  padding: 10px 20px; border-radius: 8px;
+  cursor: pointer; white-space: nowrap;
+  transition: all 0.2s; flex-shrink: 0;
+}
+.pro-lock-cta:hover { filter: brightness(1.1); transform: translateY(-1px); }
+
+/* ── SOCIAL PROOF STRIP ── */
+.social-proof {
+  padding: 48px 28px;
+  max-width: 1100px; margin: 0 auto;
+}
+.proof-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  margin-top: 28px;
+}
+.proof-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  position: relative;
+  transition: all 0.25s;
+}
+.proof-card:hover { border-color: #3a3a44; transform: translateY(-3px); box-shadow: 0 12px 40px rgba(0,0,0,0.3); }
+.proof-stars { color: var(--orange); font-size: 0.9rem; margin-bottom: 12px; letter-spacing: 2px; }
+.proof-text {
+  font-size: 0.9rem; color: var(--text);
+  line-height: 1.7; margin-bottom: 16px;
+  font-style: italic;
+}
+.proof-author {
+  display: flex; align-items: center; gap: 10px;
+}
+.proof-avatar {
+  width: 36px; height: 36px; border-radius: 50%;
+  object-fit: cover; border: 2px solid var(--border);
+}
+.proof-name {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.9rem; font-weight: 800;
+  text-transform: uppercase;
+}
+.proof-detail { font-size: 0.75rem; color: var(--muted); margin-top: 1px; }
+
+/* ── FEATURE IMAGE ROW ── */
+.feature-img-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  padding: 0 28px 48px;
+  max-width: 1100px; margin: 0 auto;
+}
+.feature-img-card {
+  position: relative;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  height: 240px;
+  cursor: pointer;
+  border: 1px solid var(--border);
+  transition: all 0.3s;
+}
+.feature-img-card:hover { transform: translateY(-4px); box-shadow: 0 20px 60px rgba(0,0,0,0.5); filter: brightness(1.1); }
+.feature-img-overlay {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column;
+  justify-content: flex-end;
+  padding: 24px;
+  background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 60%);
+}
+.feature-img-tag {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.7rem; font-weight: 700;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--orange); margin-bottom: 6px;
+}
+.feature-img-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1.5rem; font-weight: 900;
+  text-transform: uppercase; line-height: 1.1;
+}
+.feature-img-sub { font-size: 0.82rem; color: rgba(255,255,255,0.65); margin-top: 6px; }
+
+/* ── TRACKER PRO WALL ── */
+.pro-wall {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 36px 24px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 16px;
+}
+.pro-wall::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, #ffd60a08, #ff6b2b08);
+}
+.pro-wall-icon { font-size: 2.4rem; margin-bottom: 12px; }
+.pro-wall-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1.6rem; font-weight: 900;
+  text-transform: uppercase; margin-bottom: 8px;
+}
+.pro-wall-stat {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 2.8rem; font-weight: 900;
+  color: var(--orange); line-height: 1;
+  margin: 12px 0 4px;
+}
+.pro-wall-stat-label {
+  font-size: 0.85rem; color: var(--muted); margin-bottom: 20px;
+}
+.pro-wall-msg {
+  font-size: 0.92rem; color: var(--muted);
+  line-height: 1.6; max-width: 320px; margin: 0 auto 24px;
+}
 
 @media (max-width: 768px) {
   .phase-grid { grid-template-columns: 1fr; }
@@ -691,6 +1174,9 @@ footer {
   .bmi-inputs { grid-template-columns: 1fr; }
   nav { padding: 0 14px; }
   .nav-btn { padding: 7px 9px; font-size: 0.78rem; }
+  .hero-images { grid-template-columns: repeat(2,1fr); height: 160px; }
+  .proof-grid { grid-template-columns: 1fr; }
+  .feature-img-row { grid-template-columns: 1fr; }
 }
 </style>
 </head>
@@ -707,6 +1193,10 @@ footer {
     <button class="nav-btn" onclick="showPage('nutrition')">Nutrition</button>
     <button class="nav-btn" onclick="showPage('tips')">Tips</button>
   </div>
+  <div id="navUserArea" style="display:flex;align-items:center;gap:10px;">
+    <button class="nav-pro-btn" onclick="unlockPro()"><span class="pro-icon">⚡</span> Unlock Pro · ₹99</button>
+    <button class="nav-login-btn" onclick="openModal()">Sign In</button>
+  </div>
 </nav>
 
 <!-- ═══════════ HOME PAGE ═══════════ -->
@@ -715,56 +1205,133 @@ footer {
   <!-- HERO -->
   <div class="hero">
     <div class="hero-bg"></div>
-    <div class="hero-tag">90-Day Body Transformation</div>
-    <h1>Transform Your<br>Body in <span class="highlight">90 Days</span></h1>
-    <p>A structured, no-excuses fitness program designed to rebuild your body from the ground up. No gym needed. Just commitment.</p>
-    <div class="hero-btns">
-      <button class="btn-primary" onclick="showPage('plan')">Start the Program →</button>
-      <button class="btn-ghost" onclick="showPage('tracker')">Track Progress</button>
+    <div class="hero-tag anim-up">90-Day Body Transformation</div>
+    <h1 class="anim-up-2">Transform Your<br>Body in <span class="highlight">90 Days</span></h1>
+    <p class="anim-up-3">A structured, no-excuses fitness program designed to rebuild your body from the ground up. No gym. No equipment. Just commitment.</p>
+    <div class="hero-btns anim-up-4">
+      <button class="btn-primary anim-glow" onclick="showPage('tracker')">Start Today — It's Free →</button>
+      <button class="btn-ghost" onclick="showPage('plan')">View Full Plan</button>
+    </div>
+  </div>
+
+  <!-- HERO IMAGE STRIP -->
+  <div class="hero-images">
+    <div class="hero-img-cell" style="background:linear-gradient(135deg,#1a0a00 0%,#3d1a00 50%,#ff6b2b22 100%)">
+      <svg class="anim-float" viewBox="0 0 200 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;opacity:0.75">
+        <ellipse cx="100" cy="195" rx="70" ry="8" fill="#ff6b2b" opacity="0.2"/>
+        <circle cx="100" cy="80" r="18" fill="#ff6b2b" opacity="0.9"/>
+        <rect x="72" y="98" width="56" height="8" rx="4" fill="#ff6b2b" opacity="0.8" transform="rotate(-5,100,102)"/>
+        <rect x="60" y="106" width="22" height="7" rx="3" fill="#ff6b2b" opacity="0.7" transform="rotate(30,71,109)"/>
+        <rect x="118" y="106" width="22" height="7" rx="3" fill="#ff6b2b" opacity="0.7" transform="rotate(-30,129,109)"/>
+        <rect x="78" y="118" width="44" height="50" rx="6" fill="#ff6b2b" opacity="0.65"/>
+        <rect x="82" y="168" width="14" height="30" rx="5" fill="#ff6b2b" opacity="0.6"/>
+        <rect x="104" y="168" width="14" height="30" rx="5" fill="#ff6b2b" opacity="0.6"/>
+      </svg>
+      <div class="img-label">Strength</div>
+    </div>
+    <div class="hero-img-cell" style="background:linear-gradient(135deg,#001a0a 0%,#003d1a 50%,#30d15822 100%)">
+      <svg class="anim-float-2" viewBox="0 0 200 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;opacity:0.75">
+        <rect x="30" y="105" width="140" height="10" rx="5" fill="#30d158" opacity="0.7"/>
+        <rect x="20" y="88" width="22" height="44" rx="6" fill="#30d158" opacity="0.9"/>
+        <rect x="14" y="94" width="10" height="32" rx="4" fill="#30d158" opacity="1"/>
+        <rect x="158" y="88" width="22" height="44" rx="6" fill="#30d158" opacity="0.9"/>
+        <rect x="176" y="94" width="10" height="32" rx="4" fill="#30d158" opacity="1"/>
+        <circle cx="100" cy="75" r="16" fill="#30d158" opacity="0.7"/>
+      </svg>
+      <div class="img-label">Discipline</div>
+    </div>
+    <div class="hero-img-cell" style="background:linear-gradient(135deg,#00001a 0%,#00003d 50%,#0a84ff22 100%)">
+      <svg class="anim-float-3" viewBox="0 0 200 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;opacity:0.75">
+        <circle cx="115" cy="60" r="16" fill="#0a84ff" opacity="0.9"/>
+        <line x1="115" y1="76" x2="95" y2="130" stroke="#0a84ff" stroke-width="8" stroke-linecap="round" opacity="0.8"/>
+        <line x1="100" y1="100" x2="70" y2="85" stroke="#0a84ff" stroke-width="6" stroke-linecap="round" opacity="0.7"/>
+        <line x1="100" y1="100" x2="130" y2="88" stroke="#0a84ff" stroke-width="6" stroke-linecap="round" opacity="0.7"/>
+        <line x1="95" y1="130" x2="68" y2="162" stroke="#0a84ff" stroke-width="7" stroke-linecap="round" opacity="0.75"/>
+        <line x1="95" y1="130" x2="122" y2="158" stroke="#0a84ff" stroke-width="7" stroke-linecap="round" opacity="0.75"/>
+        <ellipse cx="95" cy="190" rx="60" ry="6" fill="#0a84ff" opacity="0.15"/>
+      </svg>
+      <div class="img-label">Endurance</div>
+    </div>
+    <div class="hero-img-cell" style="background:linear-gradient(135deg,#1a1500 0%,#3d3000 50%,#ffd60a22 100%)">
+      <svg class="anim-float-4" viewBox="0 0 200 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;opacity:0.75">
+        <rect x="80" y="170" width="40" height="10" rx="3" fill="#ffd60a" opacity="0.9"/>
+        <rect x="70" y="180" width="60" height="8" rx="3" fill="#ffd60a" opacity="1"/>
+        <rect x="92" y="140" width="16" height="32" rx="2" fill="#ffd60a" opacity="0.8"/>
+        <path d="M60 60 Q60 130 100 130 Q140 130 140 60 Z" fill="#ffd60a" opacity="0.75"/>
+        <path d="M60 70 Q40 70 40 95 Q40 118 60 118" fill="none" stroke="#ffd60a" stroke-width="8" stroke-linecap="round" opacity="0.7"/>
+        <path d="M140 70 Q160 70 160 95 Q160 118 140 118" fill="none" stroke="#ffd60a" stroke-width="8" stroke-linecap="round" opacity="0.7"/>
+        <text x="100" y="52" text-anchor="middle" font-family="sans-serif" font-size="22" fill="#ffd60a" opacity="1">★</text>
+      </svg>
+      <div class="img-label">Results</div>
+    </div>
+  </div>
+
+  <!-- STAT TICKER -->
+  <div class="stat-ticker">
+    <div class="ticker-track">
+      <div class="ticker-item">🔥 <span>Only 7%</span> of people finish 90-day programs</div>
+      <div class="ticker-item">💪 <span>Day 1</span> is the hardest — you already made it</div>
+      <div class="ticker-item">⚡ <span>90 days</span> to build a habit that lasts forever</div>
+      <div class="ticker-item">🏆 <span>Zero</span> equipment needed</div>
+      <div class="ticker-item">🔒 <span>Pro</span> unlocks all 90 days — ₹199 one-time</div>
+      <div class="ticker-item">🎯 <span>5–6 days</span> per week · 45–65 min per session</div>
+      <!-- duplicate for seamless loop -->
+      <div class="ticker-item">🔥 <span>Only 7%</span> of people finish 90-day programs</div>
+      <div class="ticker-item">💪 <span>Day 1</span> is the hardest — you already made it</div>
+      <div class="ticker-item">⚡ <span>90 days</span> to build a habit that lasts forever</div>
+      <div class="ticker-item">🏆 <span>Zero</span> equipment needed</div>
+      <div class="ticker-item">🔒 <span>Pro</span> unlocks all 90 days — ₹199 one-time</div>
+      <div class="ticker-item">🎯 <span>5–6 days</span> per week · 45–65 min per session</div>
     </div>
   </div>
 
   <!-- QUICK STATS -->
   <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border-top:1px solid var(--border);border-bottom:1px solid var(--border);margin-bottom:60px">
-    <div style="background:var(--surface);padding:24px;text-align:center">
+    <div class="anim-pop" style="background:var(--surface);padding:24px;text-align:center">
       <div style="font-family:'Barlow Condensed',sans-serif;font-size:2.4rem;font-weight:900;color:var(--orange)">90</div>
-      <div style="font-size:0.82rem;color:var(--muted);margin-top:2px">Days Total</div>
+      <div style="font-size:0.85rem;font-weight:700;color:var(--muted);margin-top:2px;letter-spacing:0.06em;text-transform:uppercase">Days Total</div>
     </div>
-    <div style="background:var(--surface);padding:24px;text-align:center">
+    <div class="anim-pop-2" style="background:var(--surface);padding:24px;text-align:center">
       <div style="font-family:'Barlow Condensed',sans-serif;font-size:2.4rem;font-weight:900;color:var(--text)">3</div>
-      <div style="font-size:0.82rem;color:var(--muted);margin-top:2px">Phases</div>
+      <div style="font-size:0.85rem;font-weight:700;color:var(--muted);margin-top:2px;letter-spacing:0.06em;text-transform:uppercase">Phases</div>
     </div>
-    <div style="background:var(--surface);padding:24px;text-align:center">
+    <div class="anim-pop-3" style="background:var(--surface);padding:24px;text-align:center">
       <div style="font-family:'Barlow Condensed',sans-serif;font-size:2.4rem;font-weight:900;color:var(--text)">5-6</div>
-      <div style="font-size:0.82rem;color:var(--muted);margin-top:2px">Days / Week</div>
+      <div style="font-size:0.85rem;font-weight:700;color:var(--muted);margin-top:2px;letter-spacing:0.06em;text-transform:uppercase">Days / Week</div>
     </div>
-    <div style="background:var(--surface);padding:24px;text-align:center">
+    <div class="anim-pop" style="background:var(--surface);padding:24px;text-align:center">
       <div style="font-family:'Barlow Condensed',sans-serif;font-size:2.4rem;font-weight:900;color:var(--green)">0</div>
-      <div style="font-size:0.82rem;color:var(--muted);margin-top:2px">Equipment Needed</div>
+      <div style="font-size:0.85rem;font-weight:700;color:var(--muted);margin-top:2px;letter-spacing:0.06em;text-transform:uppercase">Equipment Needed</div>
     </div>
   </div>
 
+  <!-- MOTIVATIONAL BANNER 1 -->
+  <div class="motive-banner">
+    <div class="motive-quote anim-up">"Most people quit at <em>Day 7.</em><br>The 7% who don't — change everything."</div>
+    <div class="motive-sub anim-up-2">This program was built for the 7%. Are you in?</div>
+  </div>
+
   <!-- PHASES OVERVIEW -->
-  <div class="phases fade-in">
-    <div class="section-label">Program Structure</div>
-    <div class="section-title">3 Brutal Phases</div>
-    <div class="section-sub">Each phase progressively builds on the last. Skip nothing. Rest when scheduled.</div>
+  <div class="phases fade-in" style="padding-top:60px">
+    <div class="section-label anim-left">Program Structure</div>
+    <div class="section-title anim-up">3 Brutal Phases</div>
+    <div class="section-sub anim-up-2">Each phase progressively builds on the last. Skip nothing. Rest when scheduled.</div>
     <div class="phase-grid">
-      <div class="phase-card" onclick="showPage('plan')">
+      <div class="phase-card anim-up" onclick="showPage('plan')">
         <div class="phase-num">01</div>
-        <span class="phase-badge badge-green">Phase 1</span>
+        <span class="phase-badge badge-green">Phase 1 · Free</span>
         <div class="phase-title">Foundation</div>
         <div class="phase-days">Days 1–30 · Build the base</div>
-        <div class="phase-desc">Master the fundamentals. Build the habit. Learn proper form on every movement. This phase seems easy — it isn't.</div>
+        <div class="phase-desc">Master the fundamentals. Build the habit. Learn proper form on every movement. Days 1–7 are free — no excuses.</div>
         <div class="phase-stats">
           <div class="pstat"><div class="pstat-n">30</div><div class="pstat-l">Days</div></div>
           <div class="pstat"><div class="pstat-n">5</div><div class="pstat-l">Days/Wk</div></div>
           <div class="pstat"><div class="pstat-n">45</div><div class="pstat-l">Min/Day</div></div>
         </div>
       </div>
-      <div class="phase-card" onclick="showPage('plan')">
+      <div class="phase-card anim-up-2" onclick="unlockPro()">
         <div class="phase-num">02</div>
-        <span class="phase-badge badge-orange">Phase 2</span>
+        <span class="phase-badge badge-orange">Phase 2 · Pro 🔒</span>
         <div class="phase-title">Intensity</div>
         <div class="phase-days">Days 31–60 · Push harder</div>
         <div class="phase-desc">Volume increases. Rest time drops. Your body has adapted — now it's time to shock it again with higher intensity.</div>
@@ -774,9 +1341,9 @@ footer {
           <div class="pstat"><div class="pstat-n">55</div><div class="pstat-l">Min/Day</div></div>
         </div>
       </div>
-      <div class="phase-card" onclick="showPage('plan')">
+      <div class="phase-card anim-up-3" onclick="unlockPro()">
         <div class="phase-num">03</div>
-        <span class="phase-badge badge-red">Phase 3</span>
+        <span class="phase-badge badge-red">Phase 3 · Pro 🔒</span>
         <div class="phase-title">Shred</div>
         <div class="phase-days">Days 61–90 · Finish strong</div>
         <div class="phase-desc">Maximum output. Minimum excuses. This is where transformations happen. HIIT, circuits, and daily challenges.</div>
@@ -784,6 +1351,92 @@ footer {
           <div class="pstat"><div class="pstat-n">30</div><div class="pstat-l">Days</div></div>
           <div class="pstat"><div class="pstat-n">6</div><div class="pstat-l">Days/Wk</div></div>
           <div class="pstat"><div class="pstat-n">65</div><div class="pstat-l">Min/Day</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FEATURE IMAGE ROW -->
+  <div class="feature-img-row">
+    <div class="feature-img-card" onclick="showPage('tracker')">
+      <div style="width:100%;height:100%;background:linear-gradient(135deg,#0c1a0c 0%,#1a3d1a 40%,#30d15830 100%);display:flex;align-items:center;justify-content:center;">
+        <svg viewBox="0 0 300 240" xmlns="http://www.w3.org/2000/svg" style="width:85%;height:85%;opacity:0.55">
+          <circle cx="150" cy="80" r="28" fill="#30d158"/>
+          <rect x="112" y="108" width="76" height="12" rx="6" fill="#30d158" opacity="0.8"/>
+          <rect x="88" y="118" width="30" height="9" rx="4" fill="#30d158" opacity="0.6" transform="rotate(35,103,122)"/>
+          <rect x="182" y="118" width="30" height="9" rx="4" fill="#30d158" opacity="0.6" transform="rotate(-35,197,122)"/>
+          <rect x="118" y="130" width="64" height="70" rx="10" fill="#30d158" opacity="0.6"/>
+          <rect x="124" y="200" width="20" height="36" rx="7" fill="#30d158" opacity="0.5"/>
+          <rect x="156" y="200" width="20" height="36" rx="7" fill="#30d158" opacity="0.5"/>
+          <circle cx="60" cy="60" r="6" fill="#30d158" opacity="0.3"/>
+          <circle cx="240" cy="40" r="10" fill="#30d158" opacity="0.2"/>
+          <circle cx="260" cy="160" r="7" fill="#30d158" opacity="0.25"/>
+          <text x="150" y="30" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#30d158" opacity="0.6" letter-spacing="3" font-weight="bold">FREE · DAYS 1–7</text>
+        </svg>
+      </div>
+      <div class="feature-img-overlay" style="background:linear-gradient(to top,rgba(0,0,0,0.85) 0%,transparent 70%)">
+        <div class="feature-img-tag">Free · Days 1–7</div>
+        <div class="feature-img-title">Start Today.<br>No Excuses.</div>
+        <div class="feature-img-sub">Basic workouts. Real results. Begin now →</div>
+      </div>
+    </div>
+    <div class="feature-img-card" onclick="unlockPro()">
+      <div style="width:100%;height:100%;background:linear-gradient(135deg,#1a0a00 0%,#3d2000 40%,#ffd60a20 100%);display:flex;align-items:center;justify-content:center;">
+        <svg viewBox="0 0 300 240" xmlns="http://www.w3.org/2000/svg" style="width:85%;height:85%;opacity:0.55">
+          <!-- Lock icon -->
+          <rect x="95" y="120" width="110" height="90" rx="14" fill="#ffd60a" opacity="0.75"/>
+          <path d="M115 120 L115 92 Q115 55 150 55 Q185 55 185 92 L185 120" fill="none" stroke="#ffd60a" stroke-width="14" stroke-linecap="round" opacity="0.7"/>
+          <circle cx="150" cy="155" r="16" fill="#1a0a00" opacity="0.7"/>
+          <rect x="144" y="155" width="12" height="22" rx="4" fill="#1a0a00" opacity="0.7"/>
+          <text x="150" y="30" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#ffd60a" opacity="0.6" letter-spacing="3" font-weight="bold">PRO · DAYS 8–90</text>
+          <circle cx="50" cy="80" r="8" fill="#ffd60a" opacity="0.2"/>
+          <circle cx="260" cy="50" r="12" fill="#ffd60a" opacity="0.15"/>
+          <circle cx="240" cy="180" r="6" fill="#ffd60a" opacity="0.2"/>
+          <text x="150" y="228" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#ffd60a" opacity="0.5" letter-spacing="2">₹199 · LIFETIME ACCESS</text>
+        </svg>
+      </div>
+      <div class="feature-img-overlay" style="background:linear-gradient(to top,rgba(0,0,0,0.85) 0%,transparent 70%)">
+        <div class="feature-img-tag">Pro · Days 8–90 🔒</div>
+        <div class="feature-img-title">Go Beyond<br>Day 7.</div>
+        <div class="feature-img-sub">Unlock 83 more days of elite programming →</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MOTIVATIONAL BANNER 2 -->
+  <div class="motive-banner" style="margin-bottom:0">
+    <div class="motive-quote">Only <em>7%</em> of people complete 90 days.<br>Unlock Pro to join them.</div>
+    <div class="motive-sub">₹199 · One-time · Lifetime access · No subscriptions</div>
+    <button class="btn-primary" style="margin-top:20px;position:relative;z-index:1;background:linear-gradient(135deg,#ffd60a,#ff9500);color:#000" onclick="unlockPro()">⚡ Unlock Pro · ₹199</button>
+  </div>
+
+  <!-- SOCIAL PROOF -->
+  <div class="social-proof">
+    <div class="section-label anim-left">Real Results</div>
+    <div class="section-title anim-up">People Who Didn't Quit</div>
+    <div class="proof-grid">
+      <div class="proof-card anim-up">
+        <div class="proof-stars">★★★★★</div>
+        <div class="proof-text">"I tried 3 programs before this. None stuck. This one hit different — the daily structure kept me honest. By Day 30 I had visible abs for the first time in my life."</div>
+        <div class="proof-author">
+          <div class="proof-avatar" style="background:linear-gradient(135deg,#ff6b2b,#ff9500);display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1rem;color:#000;border:none;">RM</div>
+          <div><div class="proof-name">Rahul M.</div><div class="proof-detail">Completed Day 90 · Lost 11kg</div></div>
+        </div>
+      </div>
+      <div class="proof-card anim-up-2">
+        <div class="proof-stars">★★★★★</div>
+        <div class="proof-text">"The Pro plan is insane. Week 6 nearly broke me. But when I hit Day 90 and looked in the mirror — I couldn't believe it was me. Worth every rupee."</div>
+        <div class="proof-author">
+          <div class="proof-avatar" style="background:linear-gradient(135deg,#30d158,#5eead4);display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1rem;color:#000;border:none;">PK</div>
+          <div><div class="proof-name">Priya K.</div><div class="proof-detail">Completed Day 90 · -8% body fat</div></div>
+        </div>
+      </div>
+      <div class="proof-card anim-up-3">
+        <div class="proof-stars">★★★★★</div>
+        <div class="proof-text">"I'm a software engineer — sit all day. 90 days ago I couldn't do 5 proper push-ups. Now I can do 40 clean reps and 10 pull-ups. The program is brutal but it works."</div>
+        <div class="proof-author">
+          <div class="proof-avatar" style="background:linear-gradient(135deg,#0a84ff,#5eb8ff);display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1rem;color:#000;border:none;">AS</div>
+          <div><div class="proof-name">Arjun S.</div><div class="proof-detail">Completed Day 90 · +22kg strength</div></div>
         </div>
       </div>
     </div>
@@ -951,33 +1604,14 @@ footer {
           <div style="font-family:'Barlow Condensed',sans-serif;font-size:1.1rem;font-weight:800;text-transform:uppercase">Today's Workout</div>
           <span class="phase-badge badge-green" id="todayPhase">Phase 1 — Foundation</span>
         </div>
-        <div class="workout-list" id="workoutList">
-          <div class="workout-item" onclick="toggleWorkout(this)">
-            <div class="check-circle">✓</div>
-            <div class="workout-name">Push-Ups</div>
-            <div class="workout-reps">3 × 15</div>
+        <div id="proLockBanner" style="display:none" class="pro-lock-banner">
+          <div>
+            <div class="pro-lock-text">🔒 Day <span id="lockedDayNum">8</span> is Pro Only</div>
+            <div class="pro-lock-sub">Only 7% of people complete 90 days. Unlock Pro to join them.</div>
           </div>
-          <div class="workout-item" onclick="toggleWorkout(this)">
-            <div class="check-circle">✓</div>
-            <div class="workout-name">Diamond Push-Ups</div>
-            <div class="workout-reps">3 × 10</div>
-          </div>
-          <div class="workout-item" onclick="toggleWorkout(this)">
-            <div class="check-circle">✓</div>
-            <div class="workout-name">Pike Push-Ups</div>
-            <div class="workout-reps">3 × 10</div>
-          </div>
-          <div class="workout-item" onclick="toggleWorkout(this)">
-            <div class="check-circle">✓</div>
-            <div class="workout-name">Dips (chair)</div>
-            <div class="workout-reps">3 × 12</div>
-          </div>
-          <div class="workout-item" onclick="toggleWorkout(this)">
-            <div class="check-circle">✓</div>
-            <div class="workout-name">Plank</div>
-            <div class="workout-reps">3 × 45s</div>
-          </div>
+          <button class="pro-lock-cta" onclick="unlockPro()">⚡ Unlock · ₹199</button>
         </div>
+        <div class="workout-list" id="workoutList"></div>
         <button onclick="completeDay()" style="width:100%;margin-top:16px;padding:13px;background:var(--green);border:none;border-radius:10px;color:#000;font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:800;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer;transition:all 0.2s" onmouseover="this.style.filter='brightness(1.1)'" onmouseout="this.style.filter='none'">Mark Day Complete ✓</button>
       </div>
     </div>
@@ -1188,7 +1822,79 @@ footer {
   </div>
 </div>
 
+<!-- ═══════════ PRO MODAL ═══════════ -->
+<div class="modal-overlay hidden" id="proModal" onclick="if(event.target===this)closeProModal()">
+  <div class="modal-box" style="text-align:center;max-width:380px;">
+    <button class="modal-close" onclick="closeProModal()">✕</button>
+    <div style="font-size:2.8rem;margin-bottom:12px;">🚀</div>
+    <div style="font-family:'Barlow Condensed',sans-serif;font-size:1.8rem;font-weight:900;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:8px;">Unlock Pro</div>
+    <div style="font-size:0.95rem;color:var(--muted);line-height:1.6;margin-bottom:24px;">Get full access to all 90 days, advanced tracking, nutrition plans, and more.</div>
+    <div style="background:var(--surface2);border:1px solid var(--border);border-radius:14px;padding:20px;margin-bottom:24px;">
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:6px;">One-Time Price</div>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:3rem;font-weight:900;color:#ffd60a;line-height:1;">₹199</div>
+      <div style="font-size:0.8rem;color:var(--muted);margin-top:4px;">Lifetime access · No subscriptions</div>
+    </div>
+    <button class="form-submit" style="background:linear-gradient(135deg,#ffd60a,#ff9500);color:#000;width:100%;font-size:1.05rem;margin-bottom:10px;" onclick="closeProModal();showToast('🚀 Pro coming soon — we\'ll notify you!')">⚡ Coming Soon · ₹199</button>
+    <button onclick="closeProModal()" style="background:none;border:none;color:var(--muted);font-family:'Barlow Condensed',sans-serif;font-size:0.85rem;cursor:pointer;letter-spacing:0.06em;">Maybe later</button>
+  </div>
+</div>
+
+<!-- ═══════════ LOGIN MODAL ═══════════ -->
+<div class="modal-overlay hidden" id="loginModal" onclick="handleOverlayClick(event)">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+
+    <div class="modal-logo">90<span>Day</span> Beast</div>
+    <div class="modal-tagline">Transform your body in 90 days. Sign in to track your journey.</div>
+
+    <div class="modal-tabs">
+      <button class="modal-tab active" id="tabLogin" onclick="switchTab('login')">Sign In</button>
+      <button class="modal-tab" id="tabSignup" onclick="switchTab('signup')">Create Account</button>
+    </div>
+
+    <!-- LOGIN FORM -->
+    <div class="modal-form" id="formLogin">
+      <div class="form-group">
+        <label class="form-label">Email</label>
+        <input class="form-input" type="email" id="loginEmail" placeholder="you@example.com" />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Password</label>
+        <input class="form-input" type="password" id="loginPassword" placeholder="••••••••" />
+        <div class="form-forgot">Forgot password?</div>
+      </div>
+      <button class="form-submit" onclick="handleLogin()">Sign In →</button>
+    </div>
+
+    <!-- SIGNUP FORM -->
+    <div class="modal-form hidden" id="formSignup">
+      <div class="form-group">
+        <label class="form-label">Full Name</label>
+        <input class="form-input" type="text" id="signupName" placeholder="Your Name" />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Email</label>
+        <input class="form-input" type="email" id="signupEmail" placeholder="you@example.com" />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Password</label>
+        <input class="form-input" type="password" id="signupPassword" placeholder="Min. 8 characters" />
+      </div>
+      <button class="form-submit" onclick="handleSignup()">Start My Journey →</button>
+    </div>
+  </div>
+</div>
+
 <script>
+function unlockPro() {
+  document.getElementById('proModal').classList.remove('hidden');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeProModal() {
+  document.getElementById('proModal').classList.add('hidden');
+  document.body.style.overflow = '';
+}
 const EXERCISES = [
   {name:"Push-Up",muscle:"Chest, Triceps, Shoulders",cat:"push",icon:"💪",bg:"#ff6b2b18",color:"#ff6b2b",desc:"Classic bodyweight exercise. Keep core tight, elbows at 45°. Lower until chest nearly touches floor.",tags:["Beginner","No Equipment"],diff:"Beginner"},
   {name:"Diamond Push-Up",muscle:"Triceps, Inner Chest",cat:"push",icon:"💎",bg:"#ff6b2b18",color:"#ff6b2b",desc:"Hands form diamond shape. Isolates triceps heavily. Keep elbows tucked close to body.",tags:["Intermediate","Tricep Focused"],diff:"Intermediate"},
@@ -1223,12 +1929,17 @@ function showPage(id) {
 }
 
 function changeDay(dir) {
+  if (currentDay >= 7 && dir > 0) {
+    unlockPro();
+    return;
+  }
   currentDay = Math.max(1, Math.min(90, currentDay + dir));
   updateTrackerUI();
 }
 
 function updateTrackerUI() {
-  document.getElementById('currentDay').textContent = currentDay;
+  const locked = currentDay >= 8;
+  document.getElementById('currentDay').textContent = currentDay + (locked ? ' 🔒' : '');
   const pct = ((currentDay - 1) / 90 * 100).toFixed(1);
   document.getElementById('progressFill').style.width = Math.max(1.1, pct) + '%';
   document.getElementById('progressPct').textContent = pct + '% Complete';
@@ -1251,6 +1962,7 @@ function updateTrackerUI() {
   document.getElementById('currentStreak').textContent = streak + ' 🔥';
 
   updateStreakGrid();
+  renderWorkoutList();
 }
 
 function updateStreakGrid() {
@@ -1271,6 +1983,10 @@ function toggleWorkout(el) {
 }
 
 function completeDay() {
+  if (currentDay >= 7) {
+    unlockPro();
+    return;
+  }
   completedDays.add(currentDay);
   document.querySelectorAll('.workout-item').forEach(el => el.classList.add('done'));
   updateTrackerUI();
@@ -1332,9 +2048,279 @@ function renderExercises() {
   });
 }
 
+// ── DAY-BY-DAY WORKOUT PLAN ──
+// FREE: Days 1–7 — basic beginner moves only
+// PRO:  Days 8–90 — progressive, varied, more exercises per day
+
+const DAY_WORKOUTS = {
+  // ── FREE WEEK (Days 1–7) ──
+  1: [ {name:'Push-Ups', reps:'3 × 10'}, {name:'Squats', reps:'3 × 15'}, {name:'Plank', reps:'3 × 20s'}, {name:'Jumping Jacks', reps:'3 × 30'} ],
+  2: [ {name:'Knee Push-Ups', reps:'3 × 12'}, {name:'Glute Bridges', reps:'3 × 15'}, {name:'Dead Bug', reps:'3 × 10'}, {name:'Mountain Climbers', reps:'2 × 20s'} ],
+  3: [ {name:'Push-Ups', reps:'3 × 12'}, {name:'Lunges', reps:'3 × 10/leg'}, {name:'Plank', reps:'3 × 25s'}, {name:'Burpees', reps:'2 × 5'} ],
+  4: [ {name:'REST / Walk', reps:'20–30 min'}, {name:'Stretching', reps:'10 min'} ],
+  5: [ {name:'Push-Ups', reps:'3 × 15'}, {name:'Squats', reps:'3 × 20'}, {name:'Superman Hold', reps:'3 × 10'}, {name:'Jumping Jacks', reps:'3 × 40'} ],
+  6: [ {name:'Dips (Chair)', reps:'3 × 10'}, {name:'Step-Ups', reps:'3 × 12/leg'}, {name:'Plank', reps:'3 × 30s'}, {name:'High Knees', reps:'3 × 30s'} ],
+  7: [ {name:'Full Body Flow', reps:'1 round'}, {name:'Push-Ups', reps:'2 × 15'}, {name:'Squats', reps:'2 × 20'}, {name:'Plank', reps:'2 × 30s'}, {name:'Stretching', reps:'10 min'} ],
+
+  // ── PRO: Week 2 (Days 8–14) — Push/Pull/Legs split begins ──
+  8:  [ {name:'Pike Push-Ups', reps:'4 × 10'}, {name:'Diamond Push-Ups', reps:'3 × 10'}, {name:'Dips (Chair)', reps:'3 × 12'}, {name:'Plank to Push-Up', reps:'3 × 8'}, {name:'Hollow Body Hold', reps:'3 × 20s'} ],
+  9:  [ {name:'Inverted Rows', reps:'4 × 10'}, {name:'Superman Hold', reps:'3 × 15'}, {name:'Dead Hang', reps:'3 × 20s'}, {name:'Towel Bicep Curl', reps:'3 × 12'}, {name:'Reverse Snow Angel', reps:'3 × 12'} ],
+  10: [ {name:'Jump Squats', reps:'4 × 12'}, {name:'Bulgarian Split Squat', reps:'3 × 8/leg'}, {name:'Glute Bridge', reps:'3 × 20'}, {name:'Calf Raises', reps:'3 × 25'}, {name:'Wall Sit', reps:'3 × 40s'} ],
+  11: [ {name:'REST / Light Walk', reps:'30 min'}, {name:'Foam Roll', reps:'10 min'} ],
+  12: [ {name:'HIIT Circuit', reps:'4 rounds'}, {name:'Burpees', reps:'× 10'}, {name:'Mountain Climbers', reps:'× 30s'}, {name:'Jump Squats', reps:'× 12'}, {name:'Push-Ups', reps:'× 15'} ],
+  13: [ {name:'Pike Push-Ups', reps:'4 × 12'}, {name:'Wide Push-Ups', reps:'3 × 15'}, {name:'Tricep Dips', reps:'4 × 12'}, {name:'L-Sit Tuck Hold', reps:'3 × 15s'}, {name:'Plank', reps:'3 × 45s'} ],
+  14: [ {name:'Inverted Rows', reps:'4 × 12'}, {name:'Pull-Up Negatives', reps:'4 × 5'}, {name:'Superman', reps:'3 × 15'}, {name:'Dead Hang', reps:'3 × 30s'}, {name:'Face Pulls (band)', reps:'3 × 15'} ],
+
+  // ── PRO: Week 3 (Days 15–21) ──
+  15: [ {name:'Push-Ups', reps:'5 × 15'}, {name:'Diamond Push-Ups', reps:'4 × 12'}, {name:'Pike Push-Ups', reps:'4 × 10'}, {name:'Dips', reps:'4 × 15'}, {name:'Plank', reps:'4 × 45s'} ],
+  16: [ {name:'Pull-Ups / Negatives', reps:'5 × max'}, {name:'Inverted Row', reps:'4 × 12'}, {name:'Superman', reps:'4 × 15'}, {name:'Dead Hang', reps:'3 × 35s'}, {name:'Scapular Pull-Ups', reps:'3 × 10'} ],
+  17: [ {name:'Bulgarian Split Squat', reps:'4 × 10/leg'}, {name:'Jump Squats', reps:'4 × 15'}, {name:'Pistol Squat Assist', reps:'3 × 6/leg'}, {name:'Calf Raises', reps:'4 × 30'}, {name:'Nordic Curl', reps:'3 × 5'} ],
+  18: [ {name:'REST / Yoga', reps:'20 min'}, {name:'Stretching', reps:'10 min'} ],
+  19: [ {name:'Tabata Burpees', reps:'8 × 20s on/10s off'}, {name:'Mountain Climbers', reps:'4 × 40s'}, {name:'High Knees', reps:'4 × 40s'}, {name:'Jump Rope (or simulate)', reps:'3 × 1 min'} ],
+  20: [ {name:'Push-Up to T', reps:'4 × 8/side'}, {name:'Archer Push-Up', reps:'3 × 8/side'}, {name:'Diamond Push-Ups', reps:'4 × 12'}, {name:'Hollow Body Hold', reps:'4 × 25s'}, {name:'Plank Shoulder Taps', reps:'3 × 20'} ],
+  21: [ {name:'Pull-Ups', reps:'5 × max'}, {name:'Inverted Row', reps:'4 × 15'}, {name:'Chin-Up Negatives', reps:'4 × 6'}, {name:'Superman', reps:'4 × 20'}, {name:'Dead Hang', reps:'3 × 40s'} ],
+
+  // ── PRO: Week 4 (Days 22–28) — Deload ──
+  22: [ {name:'Push-Ups', reps:'3 × 12'}, {name:'Squats', reps:'3 × 15'}, {name:'Plank', reps:'3 × 40s'}, {name:'Stretching', reps:'15 min'} ],
+  23: [ {name:'Inverted Rows', reps:'3 × 10'}, {name:'Superman', reps:'3 × 12'}, {name:'Dead Hang', reps:'3 × 25s'}, {name:'Light Walk', reps:'20 min'} ],
+  24: [ {name:'Lunges', reps:'3 × 10/leg'}, {name:'Glute Bridge', reps:'3 × 15'}, {name:'Calf Raises', reps:'3 × 20'}, {name:'Foam Roll', reps:'10 min'} ],
+  25: [ {name:'FULL REST', reps:'Recovery day'} ],
+  26: [ {name:'Light HIIT', reps:'3 rounds'}, {name:'Burpees', reps:'× 8'}, {name:'Mountain Climbers', reps:'× 20s'}, {name:'Jump Squats', reps:'× 10'} ],
+  27: [ {name:'Push-Ups', reps:'3 × 15'}, {name:'Dips', reps:'3 × 12'}, {name:'Pike Push-Ups', reps:'3 × 10'}, {name:'Plank', reps:'3 × 45s'} ],
+  28: [ {name:'Pull-Ups / Negatives', reps:'3 × max'}, {name:'Inverted Row', reps:'3 × 12'}, {name:'Superman', reps:'3 × 15'}, {name:'Stretching', reps:'15 min'} ],
+
+  // ── PRO: Days 29–42 (Phase 2 begins — Intensity) ──
+  29: [ {name:'Explosive Push-Ups', reps:'5 × 10'}, {name:'Diamond Push-Ups', reps:'4 × 15'}, {name:'Archer Push-Ups', reps:'4 × 8/side'}, {name:'Dips', reps:'4 × 15'}, {name:'L-Sit Tuck', reps:'4 × 20s'} ],
+  30: [ {name:'Pull-Ups', reps:'5 × max'}, {name:'Towel Rows', reps:'4 × 15'}, {name:'Chin-Ups', reps:'4 × max'}, {name:'Dead Hang', reps:'4 × 45s'}, {name:'Scapular Pulls', reps:'3 × 12'} ],
+  31: [ {name:'Pistol Squat Assist', reps:'4 × 8/leg'}, {name:'Jump Squats', reps:'5 × 15'}, {name:'Nordic Curl', reps:'4 × 6'}, {name:'Wall Sit', reps:'4 × 60s'}, {name:'Calf Raises', reps:'5 × 30'} ],
+  32: [ {name:'REST', reps:'Full recovery'} ],
+  33: [ {name:'HIIT — 5 Rounds', reps:'No rest between'}, {name:'Burpees', reps:'× 12'}, {name:'Push-Ups', reps:'× 15'}, {name:'Jump Squats', reps:'× 15'}, {name:'Mountain Climbers', reps:'× 40s'}, {name:'Plank', reps:'× 45s'} ],
+  34: [ {name:'Explosive Push-Ups', reps:'5 × 12'}, {name:'Pike Push-Ups', reps:'5 × 12'}, {name:'Wide Push-Ups', reps:'4 × 15'}, {name:'Hollow Body Hold', reps:'4 × 30s'}, {name:'Plank to Push-Up', reps:'4 × 10'} ],
+  35: [ {name:'Pull-Ups', reps:'6 × max'}, {name:'Inverted Row', reps:'5 × 15'}, {name:'Chin-Ups', reps:'4 × max'}, {name:'Dead Hang', reps:'4 × 50s'}, {name:'Superman', reps:'4 × 20'} ],
+  36: [ {name:'Pistol Squat', reps:'4 × 6/leg'}, {name:'Plyometric Lunges', reps:'4 × 10/leg'}, {name:'Jump Squats', reps:'5 × 15'}, {name:'Nordic Curl', reps:'4 × 8'}, {name:'Wall Sit', reps:'4 × 75s'} ],
+  37: [ {name:'Active REST', reps:'Walk / swim'} ],
+  38: [ {name:'Tabata — 8 Rounds', reps:'20s on / 10s off'}, {name:'Burpees', reps:'alternating'}, {name:'Mountain Climbers', reps:'alternating'} ],
+  39: [ {name:'Archer Push-Ups', reps:'5 × 10/side'}, {name:'Diamond Push-Ups', reps:'5 × 15'}, {name:'Dips', reps:'5 × 15'}, {name:'L-Sit', reps:'4 × 15s'}, {name:'Plank', reps:'4 × 60s'} ],
+  40: [ {name:'Pull-Ups', reps:'6 × max'}, {name:'Muscle-Up Transition', reps:'4 × 5'}, {name:'Chin-Ups', reps:'5 × max'}, {name:'Dead Hang', reps:'4 × 60s'}, {name:'Scapular Pull-Ups', reps:'4 × 12'} ],
+  41: [ {name:'Pistol Squat', reps:'5 × 8/leg'}, {name:'Jump Squats', reps:'5 × 20'}, {name:'Nordic Curl', reps:'4 × 10'}, {name:'Calf Raises (single leg)', reps:'4 × 20/leg'}, {name:'Wall Sit', reps:'5 × 90s'} ],
+  42: [ {name:'FULL REST', reps:'Recovery + meal prep'} ],
+
+  // ── PRO: Days 43–63 (Phase 2 continued) ──
+  43: [ {name:'One-Arm Push-Up Assist', reps:'4 × 6/arm'}, {name:'Explosive Push-Ups', reps:'5 × 12'}, {name:'Dips', reps:'5 × 20'}, {name:'Hollow Body', reps:'4 × 35s'}, {name:'Plank', reps:'4 × 75s'} ],
+  44: [ {name:'Pull-Ups', reps:'7 × max'}, {name:'Chin-Ups', reps:'5 × max'}, {name:'Towel Row', reps:'5 × 15'}, {name:'Dead Hang', reps:'5 × 60s'}, {name:'L-Sit', reps:'4 × 15s'} ],
+  45: [ {name:'Pistol Squat', reps:'5 × 10/leg'}, {name:'Plyometric Lunges', reps:'5 × 12/leg'}, {name:'Jump Squats', reps:'5 × 20'}, {name:'Nordic Curl', reps:'5 × 10'}, {name:'Wall Sit', reps:'5 × 90s'} ],
+  46: [ {name:'REST', reps:'Full recovery'} ],
+  47: [ {name:'AMRAP 20 min', reps:'As many rounds as possible'}, {name:'Pull-Ups', reps:'× 5'}, {name:'Push-Ups', reps:'× 10'}, {name:'Squats', reps:'× 15'} ],
+  48: [ {name:'Explosive Push-Ups', reps:'5 × 15'}, {name:'Archer Push-Ups', reps:'5 × 10/side'}, {name:'Pike Push-Ups', reps:'5 × 15'}, {name:'L-Sit', reps:'4 × 20s'}, {name:'Plank', reps:'4 × 90s'} ],
+  49: [ {name:'Pull-Ups', reps:'7 × max'}, {name:'Muscle-Up Attempts', reps:'4 × max'}, {name:'Chin-Ups', reps:'5 × max'}, {name:'Dead Hang', reps:'5 × 75s'}, {name:'Scapular Pulls', reps:'4 × 15'} ],
+  50: [ {name:'Pistol Squat', reps:'5 × 12/leg'}, {name:'Jump Squats', reps:'6 × 20'}, {name:'Nordic Curl', reps:'5 × 12'}, {name:'Wall Sit', reps:'5 × 2 min'}, {name:'Calf Raises (single leg)', reps:'5 × 25/leg'} ],
+  51: [ {name:'Active REST', reps:'Light swim / walk'} ],
+  52: [ {name:'HIIT — 6 Rounds', reps:'Full intensity'}, {name:'Burpees', reps:'× 15'}, {name:'Mountain Climbers', reps:'× 50s'}, {name:'Jump Squats', reps:'× 20'}, {name:'Push-Ups', reps:'× 20'} ],
+  53: [ {name:'One-Arm Push-Up Assist', reps:'5 × 8/arm'}, {name:'Explosive Push-Ups', reps:'5 × 15'}, {name:'Dips', reps:'6 × 20'}, {name:'Hollow Body', reps:'5 × 40s'}, {name:'Plank', reps:'5 × 90s'} ],
+  54: [ {name:'Pull-Ups', reps:'8 × max'}, {name:'Chin-Ups', reps:'6 × max'}, {name:'Dead Hang', reps:'5 × 90s'}, {name:'L-Sit', reps:'5 × 20s'}, {name:'Scapular Pulls', reps:'4 × 15'} ],
+  55: [ {name:'Pistol Squat', reps:'6 × 12/leg'}, {name:'Jump Squats', reps:'6 × 25'}, {name:'Nordic Curl', reps:'5 × 12'}, {name:'Wall Sit', reps:'5 × 2.5 min'}, {name:'Box Jump (chair)', reps:'4 × 10'} ],
+  56: [ {name:'FULL REST', reps:'Recovery day'} ],
+  57: [ {name:'AMRAP 25 min', reps:'Max rounds'}, {name:'Pull-Ups', reps:'× 6'}, {name:'Push-Ups', reps:'× 12'}, {name:'Squats', reps:'× 18'}, {name:'Dips', reps:'× 10'} ],
+  58: [ {name:'One-Arm Push-Up Assist', reps:'5 × 10/arm'}, {name:'Explosive Push-Ups', reps:'6 × 15'}, {name:'Archer Push-Ups', reps:'5 × 12/side'}, {name:'L-Sit', reps:'5 × 25s'}, {name:'Plank', reps:'5 × 2 min'} ],
+  59: [ {name:'Pull-Ups', reps:'8 × max'}, {name:'Muscle-Up', reps:'4 × max'}, {name:'Chin-Ups', reps:'6 × max'}, {name:'Dead Hang', reps:'5 × 2 min'}, {name:'Scapular Pulls', reps:'5 × 15'} ],
+  60: [ {name:'Pistol Squat', reps:'6 × 15/leg'}, {name:'Jump Squats', reps:'6 × 30'}, {name:'Nordic Curl', reps:'6 × 12'}, {name:'Wall Sit', reps:'6 × 3 min'}, {name:'Box Jump', reps:'5 × 12'} ],
+
+  // ── PRO: Days 61–90 (Phase 3 — SHRED) ──
+  61: [ {name:'FULL REST', reps:'Phase 3 prep'} ],
+  62: [ {name:'One-Arm Push-Up', reps:'4 × 6/arm'}, {name:'Explosive Push-Ups', reps:'6 × 15'}, {name:'Dips', reps:'6 × 25'}, {name:'Hollow Body', reps:'5 × 45s'}, {name:'Plank', reps:'5 × 2 min'} ],
+  63: [ {name:'Pull-Ups', reps:'8 × max'}, {name:'Muscle-Ups', reps:'5 × max'}, {name:'Chin-Ups', reps:'6 × max'}, {name:'Dead Hang', reps:'5 × 2 min'}, {name:'L-Sit', reps:'5 × 30s'} ],
+  64: [ {name:'Pistol Squat', reps:'6 × 15/leg'}, {name:'Jump Squats', reps:'6 × 30'}, {name:'Nordic Curl', reps:'6 × 15'}, {name:'Box Jump', reps:'5 × 15'}, {name:'Calf Raises (single leg)', reps:'5 × 30/leg'} ],
+  65: [ {name:'Active REST', reps:'Yoga / swim'} ],
+  66: [ {name:'HIIT — 8 Rounds MAX', reps:'No rest'}, {name:'Burpees', reps:'× 20'}, {name:'Mountain Climbers', reps:'× 60s'}, {name:'Jump Squats', reps:'× 25'}, {name:'Push-Ups', reps:'× 25'}, {name:'Pull-Ups', reps:'× max'} ],
+  67: [ {name:'One-Arm Push-Up', reps:'5 × 8/arm'}, {name:'Archer Push-Ups', reps:'5 × 15/side'}, {name:'Dips', reps:'6 × 25'}, {name:'L-Sit', reps:'5 × 30s'}, {name:'Plank', reps:'5 × 2.5 min'} ],
+  68: [ {name:'Pull-Ups', reps:'9 × max'}, {name:'Muscle-Ups', reps:'5 × max'}, {name:'Dead Hang', reps:'6 × 2 min'}, {name:'Scapular Pulls', reps:'5 × 20'}, {name:'L-Sit', reps:'5 × 35s'} ],
+  69: [ {name:'Pistol Squat', reps:'6 × 18/leg'}, {name:'Jump Squats', reps:'6 × 35'}, {name:'Nordic Curl', reps:'6 × 15'}, {name:'Box Jump', reps:'5 × 18'}, {name:'Wall Sit', reps:'5 × 3 min'} ],
+  70: [ {name:'FULL REST', reps:'Recovery'} ],
+  71: [ {name:'AMRAP 30 min', reps:'Max rounds'}, {name:'Pull-Ups', reps:'× 8'}, {name:'Push-Ups', reps:'× 15'}, {name:'Dips', reps:'× 12'}, {name:'Squats', reps:'× 20'}, {name:'Burpees', reps:'× 5'} ],
+  72: [ {name:'One-Arm Push-Up', reps:'5 × 10/arm'}, {name:'Explosive Push-Ups', reps:'6 × 20'}, {name:'Dips', reps:'6 × 30'}, {name:'Hollow Body', reps:'6 × 45s'}, {name:'Plank', reps:'6 × 3 min'} ],
+  73: [ {name:'Pull-Ups', reps:'9 × max'}, {name:'Muscle-Ups', reps:'6 × max'}, {name:'Chin-Ups', reps:'7 × max'}, {name:'Dead Hang', reps:'6 × 2.5 min'}, {name:'L-Sit', reps:'6 × 35s'} ],
+  74: [ {name:'Pistol Squat', reps:'7 × 18/leg'}, {name:'Jump Squats', reps:'7 × 35'}, {name:'Box Jump', reps:'6 × 20'}, {name:'Nordic Curl', reps:'6 × 18'}, {name:'Wall Sit', reps:'6 × 3.5 min'} ],
+  75: [ {name:'Active REST', reps:'Light activity only'} ],
+  76: [ {name:'HIIT PEAK', reps:'10 Rounds'}, {name:'Burpees', reps:'× 20'}, {name:'Pull-Ups', reps:'× max'}, {name:'Jump Squats', reps:'× 25'}, {name:'Push-Ups', reps:'× 25'}, {name:'Mountain Climbers', reps:'× 60s'} ],
+  77: [ {name:'One-Arm Push-Up', reps:'6 × 10/arm'}, {name:'Archer Push-Ups', reps:'6 × 15/side'}, {name:'Dips', reps:'7 × 30'}, {name:'L-Sit', reps:'6 × 40s'}, {name:'Plank', reps:'6 × 3 min'} ],
+  78: [ {name:'Pull-Ups', reps:'10 × max'}, {name:'Muscle-Ups', reps:'6 × max'}, {name:'Dead Hang', reps:'6 × 3 min'}, {name:'L-Sit', reps:'6 × 40s'}, {name:'Scapular Pulls', reps:'5 × 20'} ],
+  79: [ {name:'Pistol Squat', reps:'7 × 20/leg'}, {name:'Jump Squats', reps:'7 × 40'}, {name:'Box Jump', reps:'6 × 22'}, {name:'Nordic Curl', reps:'6 × 20'}, {name:'Wall Sit', reps:'6 × 4 min'} ],
+  80: [ {name:'FULL REST', reps:'Recovery + reflect'} ],
+  81: [ {name:'AMRAP 35 min', reps:'Max rounds'}, {name:'Pull-Ups', reps:'× 10'}, {name:'Push-Ups', reps:'× 20'}, {name:'Dips', reps:'× 15'}, {name:'Squats', reps:'× 25'}, {name:'Burpees', reps:'× 8'} ],
+  82: [ {name:'One-Arm Push-Up', reps:'6 × 12/arm'}, {name:'Explosive Push-Ups', reps:'7 × 20'}, {name:'Dips', reps:'7 × 30'}, {name:'Hollow Body', reps:'6 × 50s'}, {name:'Plank', reps:'6 × 3.5 min'} ],
+  83: [ {name:'Pull-Ups', reps:'10 × max'}, {name:'Muscle-Ups', reps:'7 × max'}, {name:'Chin-Ups', reps:'8 × max'}, {name:'Dead Hang', reps:'6 × 3 min'}, {name:'L-Sit', reps:'6 × 45s'} ],
+  84: [ {name:'Pistol Squat', reps:'8 × 20/leg'}, {name:'Jump Squats', reps:'8 × 40'}, {name:'Box Jump', reps:'7 × 25'}, {name:'Nordic Curl', reps:'7 × 20'}, {name:'Wall Sit', reps:'7 × 4 min'} ],
+  85: [ {name:'Active REST', reps:'Final week prep'} ],
+  86: [ {name:'FINAL HIIT', reps:'10 Rounds — all out'}, {name:'Burpees', reps:'× 25'}, {name:'Pull-Ups', reps:'× max'}, {name:'Jump Squats', reps:'× 30'}, {name:'Push-Ups', reps:'× 30'}, {name:'Mountain Climbers', reps:'× 75s'} ],
+  87: [ {name:'One-Arm Push-Up', reps:'6 × 15/arm'}, {name:'Archer Push-Ups', reps:'6 × 20/side'}, {name:'Dips', reps:'7 × 35'}, {name:'L-Sit', reps:'6 × 50s'}, {name:'Plank', reps:'6 × 4 min'} ],
+  88: [ {name:'Pull-Ups', reps:'10 × max'}, {name:'Muscle-Ups', reps:'8 × max'}, {name:'Dead Hang', reps:'6 × 4 min'}, {name:'L-Sit', reps:'6 × 50s'}, {name:'Scapular Pulls', reps:'6 × 20'} ],
+  89: [ {name:'Pistol Squat', reps:'8 × 25/leg'}, {name:'Jump Squats', reps:'8 × 45'}, {name:'Box Jump', reps:'7 × 28'}, {name:'Nordic Curl', reps:'7 × 25'}, {name:'Wall Sit', reps:'7 × 5 min'} ],
+  90: [ {name:'🏆 FINAL CHALLENGE', reps:'Max effort'}, {name:'Pull-Ups', reps:'× max'}, {name:'Push-Ups', reps:'× max'}, {name:'Pistol Squat', reps:'× max/leg'}, {name:'Burpees', reps:'× max'}, {name:'Plank', reps:'× max time'} ],
+};
+
+function renderWorkoutList() {
+  const list = document.getElementById('workoutList');
+  const banner = document.getElementById('proLockBanner');
+  const lockedDayNum = document.getElementById('lockedDayNum');
+  if (!list) return;
+
+  const locked = currentDay >= 8;
+
+  if (banner) {
+    banner.style.display = locked ? 'flex' : 'none';
+    if (lockedDayNum) lockedDayNum.textContent = currentDay;
+  }
+
+  if (locked) {
+    list.innerHTML = `
+      <div class="pro-wall">
+        <div class="pro-wall-icon">🔒</div>
+        <div class="pro-wall-title">Pro Content Locked</div>
+        <div class="pro-wall-stat">7%</div>
+        <div class="pro-wall-stat-label">of people complete 90 days</div>
+        <div class="pro-wall-msg">You've made it to Day ${currentDay}. Most people already gave up. Unlock Pro to access this workout and every day until Day 90.</div>
+        <button class="pro-lock-cta" style="font-size:1rem;padding:13px 28px;" onclick="unlockPro()">⚡ Unlock Pro · ₹199</button>
+        <div style="font-size:0.75rem;color:var(--muted);margin-top:12px">One-time · Lifetime access · No subscriptions</div>
+      </div>
+    `;
+    return;
+  }
+
+  const exercises = DAY_WORKOUTS[currentDay] || DAY_WORKOUTS[1];
+  list.innerHTML = exercises.map(ex => `
+    <div class="workout-item" onclick="toggleWorkout(this)">
+      <div class="check-circle">✓</div>
+      <div class="workout-name">${ex.name}</div>
+      <div class="workout-reps">${ex.reps}</div>
+    </div>
+  `).join('');
+}
+
 // Init
 updateStreakGrid();
 renderExercises();
+renderWorkoutList();
+
+// ── LOGIN MODAL ──
+let currentUser = null;
+
+function openModal() {
+  document.getElementById('loginModal').classList.remove('hidden');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  document.getElementById('loginModal').classList.add('hidden');
+  document.body.style.overflow = '';
+}
+
+function handleOverlayClick(e) {
+  if(e.target === document.getElementById('loginModal')) closeModal();
+}
+
+function switchTab(tab) {
+  document.getElementById('tabLogin').classList.toggle('active', tab === 'login');
+  document.getElementById('tabSignup').classList.toggle('active', tab === 'signup');
+  document.getElementById('formLogin').classList.toggle('hidden', tab !== 'login');
+  document.getElementById('formSignup').classList.toggle('hidden', tab !== 'signup');
+}
+
+function showToast(msg) {
+  const t = document.createElement('div');
+  t.className = 'toast'; t.textContent = msg;
+  document.body.appendChild(t);
+  setTimeout(() => t.remove(), 2900);
+}
+
+function setLoggedIn(name) {
+  currentUser = name;
+  const initials = name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0,2);
+  document.getElementById('navUserArea').innerHTML = `
+    <button class="nav-pro-btn" onclick="unlockPro()"><span class="pro-icon">⚡</span> Unlock Pro · ₹99</button>
+    <div class="modal-user-bar" onclick="handleLogout()" title="Click to sign out">
+      <div class="user-avatar">${initials}</div>
+      <div class="user-name">${name.split(' ')[0]}</div>
+    </div>`;
+  closeModal();
+  showToast('👋 Welcome back, ' + name.split(' ')[0] + '!');
+}
+
+function handleLogout() {
+  if(!confirm('Sign out?')) return;
+  currentUser = null;
+  document.getElementById('navUserArea').innerHTML = `
+    <button class="nav-pro-btn" onclick="unlockPro()"><span class="pro-icon">⚡</span> Unlock Pro · ₹99</button>
+    <button class="nav-login-btn" onclick="openModal()">Sign In</button>`;
+  showToast('Signed out. See you tomorrow! 💪');
+}
+
+function handleLogin() {
+  const email = document.getElementById('loginEmail').value.trim();
+  const pass  = document.getElementById('loginPassword').value;
+  if(!email || !pass) { showToast('⚠️ Please fill in all fields.'); return; }
+  if(!/\S+@\S+\.\S+/.test(email)) { showToast('⚠️ Enter a valid email.'); return; }
+  // Demo: derive name from email
+  const name = email.split('@')[0].replace(/[._-]/g,' ').replace(/\b\w/g, c => c.toUpperCase());
+  setLoggedIn(name);
+}
+
+function handleSignup() {
+  const name  = document.getElementById('signupName').value.trim();
+  const email = document.getElementById('signupEmail').value.trim();
+  const pass  = document.getElementById('signupPassword').value;
+  if(!name || !email || !pass) { showToast('⚠️ Please fill in all fields.'); return; }
+  if(!/\S+@\S+\.\S+/.test(email)) { showToast('⚠️ Enter a valid email.'); return; }
+  if(pass.length < 8) { showToast('⚠️ Password must be at least 8 characters.'); return; }
+  setLoggedIn(name);
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// GOOGLE OAUTH SETUP — follow these 3 steps to make "Continue with Google" work
+//
+// STEP 1 ─ Create a Google Cloud project & OAuth client
+//   1. Go to https://console.cloud.google.com/
+//   2. Create a project (or pick an existing one)
+//   3. Navigate to APIs & Services → Credentials → Create Credentials → OAuth client ID
+//   4. Application type: Web application
+//   5. Add your site URL to "Authorised JavaScript origins"  e.g. https://yourdomain.com
+//   6. Add your redirect URI to "Authorised redirect URIs"  e.g. https://yourdomain.com/auth/callback
+//   7. Copy the Client ID — paste it below as GOOGLE_CLIENT_ID
+//
+// STEP 2 ─ Paste your Client ID here ↓
+const GOOGLE_CLIENT_ID = 'YOUR_CLIENT_ID_HERE.apps.googleusercontent.com';
+//
+// STEP 3 ─ Handle the redirect on your server
+//   After Google redirects back, exchange the ?code= param for an access token:
+//   POST https://oauth2.googleapis.com/token  with client_id, client_secret, code, redirect_uri
+//   Then call https://www.googleapis.com/oauth2/v3/userinfo to get name + email.
+//   Full guide: https://developers.google.com/identity/protocols/oauth2/web-server
+// ─────────────────────────────────────────────────────────────────────────────
+
+function handleGoogleLogin() {
+  if (GOOGLE_CLIENT_ID === 'YOUR_CLIENT_ID_HERE.apps.googleusercontent.com') {
+    showToast('⚙️ Paste your Google Client ID in the code to enable this.');
+    return;
+  }
+
+  const redirectUri = encodeURIComponent(window.location.origin + window.location.pathname);
+  const scope       = encodeURIComponent('openid email profile');
+  const state       = Math.random().toString(36).slice(2); // CSRF token
+  sessionStorage.setItem('oauth_state', state);
+
+  const authUrl =
+    'https://accounts.google.com/o/oauth2/v2/auth' +
+    '?client_id='     + encodeURIComponent(GOOGLE_CLIENT_ID) +
+    '&redirect_uri='  + redirectUri +
+    '&response_type=code' +
+    '&scope='         + scope +
+    '&state='         + state +
+    '&prompt=select_account';
+
+  window.location.href = authUrl;
+}
+
+// Close modal on Escape key
+document.addEventListener('keydown', e => { if(e.key === 'Escape') closeModal(); });
 </script>
 </body>
 </html>
