@@ -1951,7 +1951,7 @@ footer {
     <button class="modal-close" onclick="closeModal()">✕</button>
 
     <div class="modal-logo">90<span>Day</span> Beast</div>
-    <div class="modal-tagline">Transform your body in 90 days. Sign in to track your journey.</div>
+    <div class="modal-tagline">Create a free account to start your transformation. No credit card needed.</div>
 
     <div class="modal-tabs">
       <button class="modal-tab active" id="tabLogin" onclick="switchTab('login')">Sign In</button>
@@ -2307,7 +2307,7 @@ updateStreakGrid();
 renderExercises();
 renderWorkoutList();
 
-// ── LOGIN MODAL ──
+// ── AUTH GATE ──
 let currentUser = null;
 
 function openModal() {
@@ -2316,12 +2316,14 @@ function openModal() {
 }
 
 function closeModal() {
+  // Only allow closing if user is already signed in
+  if (!currentUser) return;
   document.getElementById('loginModal').classList.add('hidden');
   document.body.style.overflow = '';
 }
 
 function handleOverlayClick(e) {
-  if(e.target === document.getElementById('loginModal')) closeModal();
+  // Do nothing — can't dismiss by clicking backdrop without signing in
 }
 
 function switchTab(tab) {
@@ -2347,17 +2349,25 @@ function setLoggedIn(name) {
       <div class="user-avatar">${initials}</div>
       <div class="user-name">${name.split(' ')[0]}</div>
     </div>`;
-  closeModal();
-  showToast('👋 Welcome back, ' + name.split(' ')[0] + '!');
+  // Hide close button now that user is in
+  const closeBtn = document.querySelector('#loginModal .modal-close');
+  if (closeBtn) closeBtn.style.display = 'flex';
+  document.getElementById('loginModal').classList.add('hidden');
+  document.body.style.overflow = '';
+  showToast('👋 Welcome, ' + name.split(' ')[0] + '! Let\'s get to work. 💪');
 }
 
 function handleLogout() {
-  if(!confirm('Sign out?')) return;
   currentUser = null;
   document.getElementById('navUserArea').innerHTML = `
     <button class="nav-pro-btn" onclick="unlockPro()"><span class="pro-icon">⚡</span> Unlock Pro · ₹99</button>
     <button class="nav-login-btn" onclick="openModal()">Sign In</button>`;
   showToast('Signed out. See you tomorrow! 💪');
+  // Force gate back on
+  openModal();
+  // Hide the X button since they must sign in again
+  const closeBtn = document.querySelector('#loginModal .modal-close');
+  if (closeBtn) closeBtn.style.display = 'none';
 }
 
 function handleLogin() {
@@ -2365,7 +2375,6 @@ function handleLogin() {
   const pass  = document.getElementById('loginPassword').value;
   if(!email || !pass) { showToast('⚠️ Please fill in all fields.'); return; }
   if(!/\S+@\S+\.\S+/.test(email)) { showToast('⚠️ Enter a valid email.'); return; }
-  // Demo: derive name from email
   const name = email.split('@')[0].replace(/[._-]/g,' ').replace(/\b\w/g, c => c.toUpperCase());
   setLoggedIn(name);
 }
@@ -2407,12 +2416,10 @@ function handleGoogleLogin() {
     showToast('⚙️ Paste your Google Client ID in the code to enable this.');
     return;
   }
-
   const redirectUri = encodeURIComponent(window.location.origin + window.location.pathname);
   const scope       = encodeURIComponent('openid email profile');
-  const state       = Math.random().toString(36).slice(2); // CSRF token
+  const state       = Math.random().toString(36).slice(2);
   sessionStorage.setItem('oauth_state', state);
-
   const authUrl =
     'https://accounts.google.com/o/oauth2/v2/auth' +
     '?client_id='     + encodeURIComponent(GOOGLE_CLIENT_ID) +
@@ -2421,12 +2428,19 @@ function handleGoogleLogin() {
     '&scope='         + scope +
     '&state='         + state +
     '&prompt=select_account';
-
   window.location.href = authUrl;
 }
 
-// Close modal on Escape key
-document.addEventListener('keydown', e => { if(e.key === 'Escape') closeModal(); });
+// Escape key only works if already signed in
+document.addEventListener('keydown', e => { if(e.key === 'Escape' && currentUser) closeModal(); });
+
+// ── AUTO OPEN LOGIN ON PAGE LOAD ──
+window.addEventListener('DOMContentLoaded', () => {
+  openModal();
+  // Hide the X close button — must sign in first
+  const closeBtn = document.querySelector('#loginModal .modal-close');
+  if (closeBtn) closeBtn.style.display = 'none';
+});
 </script>
 </body>
 </html>
