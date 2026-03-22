@@ -1975,7 +1975,7 @@ footer {
       <div style="font-family:'Barlow Condensed',sans-serif;font-size:3rem;font-weight:900;color:#ffd60a;line-height:1;">₹199</div>
       <div style="font-size:0.8rem;color:var(--muted);margin-top:4px;">Lifetime access · No subscriptions</div>
     </div>
-    <button class="form-submit" style="background:linear-gradient(135deg,#ffd60a,#ff9500);color:#000;width:100%;font-size:1.05rem;margin-bottom:10px;" onclick="closeProModal();showToast('🚀 Pro coming soon — we\'ll notify you!')">⚡ Coming Soon · ₹199</button>
+    <button class="form-submit" style="background:linear-gradient(135deg,#ffd60a,#ff9500);color:#000;width:100%;font-size:1.05rem;margin-bottom:10px;" onclick="buyPro()">⚡ Message us on WhatsApp · ₹199</button>
     <button onclick="closeProModal()" style="background:none;border:none;color:var(--muted);font-family:'Barlow Condensed',sans-serif;font-size:0.85rem;cursor:pointer;letter-spacing:0.06em;">Maybe later</button>
   </div>
 </div>
@@ -2027,7 +2027,24 @@ footer {
 </div>
 
 <script>
+// ── PRO STATUS ──
+const isPro = localStorage.getItem('proUser') === 'true';
+
+// If already Pro, hide any lock banners immediately on load
+if (isPro) {
+  document.addEventListener('DOMContentLoaded', () => {
+    const lock = document.getElementById('pro-lock');
+    if (lock) lock.style.display = 'none';
+  });
+}
+
+function buyPro() {
+  window.open('https://wa.me/9911410884?text=I%20want%20PRO', '_blank');
+}
+
 function unlockPro() {
+  // If already Pro, skip the modal entirely
+  if (localStorage.getItem('proUser') === 'true') return;
   document.getElementById('proModal').classList.remove('hidden');
   document.body.style.overflow = 'hidden';
 }
@@ -2035,6 +2052,16 @@ function unlockPro() {
 function closeProModal() {
   document.getElementById('proModal').classList.add('hidden');
   document.body.style.overflow = '';
+}
+
+// Call this to grant Pro access (e.g. after payment confirmation)
+function activatePro() {
+  localStorage.setItem('proUser', 'true');
+  closeProModal();
+  const lock = document.getElementById('pro-lock');
+  if (lock) lock.style.display = 'none';
+  showToast('⚡ Pro unlocked! All 90 days are yours. Let\'s GO! 🏆');
+  updateTrackerUI();
 }
 const EXERCISES = [
   {name:"Push-Up",muscle:"Chest, Triceps, Shoulders",cat:"push",icon:"💪",bg:"#ff6b2b18",color:"#ff6b2b",desc:"Classic bodyweight exercise. Keep core tight, elbows at 45°. Lower until chest nearly touches floor.",tags:["Beginner","No Equipment"],diff:"Beginner"},
@@ -2135,7 +2162,7 @@ function showPage(id) {
 }
 
 function changeDay(dir) {
-  if (currentDay >= 7 && dir > 0) {
+  if (currentDay >= 8 && dir > 0 && localStorage.getItem('proUser') !== 'true') {
     unlockPro();
     return;
   }
@@ -2230,7 +2257,7 @@ function toggleWorkout(el) {
 }
 
 function completeDay() {
-  if (currentDay >= 7) {
+  if (currentDay >= 8 && localStorage.getItem('proUser') !== 'true') {
     unlockPro();
     return;
   }
@@ -2421,7 +2448,8 @@ function renderWorkoutList() {
   const lockedDayNum = document.getElementById('lockedDayNum');
   if (!list) return;
 
-  const locked = currentDay >= 8;
+  const userIsPro = localStorage.getItem('proUser') === 'true';
+  const locked = currentDay >= 8 && !userIsPro;
 
   if (banner) {
     banner.style.display = locked ? 'flex' : 'none';
@@ -2436,7 +2464,7 @@ function renderWorkoutList() {
         <div class="pro-wall-stat">7%</div>
         <div class="pro-wall-stat-label">of people complete 90 days</div>
         <div class="pro-wall-msg">You've made it to Day ${currentDay}. Most people already gave up. Unlock Pro to access this workout and every day until Day 90.</div>
-        <button class="pro-lock-cta" style="font-size:1rem;padding:13px 28px;" onclick="unlockPro()">⚡ Unlock Pro · ₹199</button>
+        <button class="pro-lock-cta" style="font-size:1rem;padding:13px 28px;" onclick="buyPro()">⚡ Unlock Pro · ₹199</button>
         <div style="font-size:0.75rem;color:var(--muted);margin-top:12px">One-time · Lifetime access · No subscriptions</div>
       </div>
     `;
