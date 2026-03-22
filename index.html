@@ -1313,6 +1313,32 @@ footer {
   </div>
 </nav>
 
+<!-- FLOATING PRO CODE BUTTON -->
+<button onclick="openCodeModal()" style="
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 999;
+  background: var(--surface);
+  border: 1.5px solid var(--orange);
+  color: var(--orange);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 12px 20px;
+  border-radius: 50px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+  transition: all 0.2s;
+" onmouseover="this.style.background='var(--orange-bg)'" onmouseout="this.style.background='var(--surface)'">
+  🔑 Have a Pro Code?
+</button>
+
 <!-- ═══════════ HOME PAGE ═══════════ -->
 <div id="page-home" class="page active">
 
@@ -1980,6 +2006,30 @@ footer {
   </div>
 </div>
 
+<!-- ═══════════ PRO CODE MODAL ═══════════ -->
+<div class="modal-overlay hidden" id="codeModal" onclick="closeCodeModal()">
+  <div class="modal-box" onclick="event.stopPropagation()" style="max-width:380px;text-align:center">
+    <button class="modal-close" onclick="closeCodeModal()">✕</button>
+    <div style="font-size:2.5rem;margin-bottom:12px">🔑</div>
+    <div class="modal-logo">Enter Pro <span>Code</span></div>
+    <div class="modal-tagline">Paste the code you received after payment</div>
+    <div style="display:flex;flex-direction:column;gap:12px;margin-top:20px">
+      <input
+        id="proCodeInput"
+        class="form-input"
+        type="text"
+        placeholder="Enter your code"
+        style="text-align:center;font-size:1.1rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase"
+        oninput="this.value=this.value.toUpperCase()"
+        onkeydown="if(event.key==='Enter') submitProCode()"
+      />
+      <div id="codeError" style="color:var(--red);font-size:0.82rem;font-family:'Barlow Condensed',sans-serif;font-weight:700;letter-spacing:0.06em;display:none">❌ Invalid code. Try again or message us on WhatsApp.</div>
+      <button class="form-submit" onclick="submitProCode()">Activate Pro →</button>
+      <div style="font-size:0.8rem;color:var(--muted)">Don't have a code? <span style="color:var(--orange);cursor:pointer;font-weight:600" onclick="closeCodeModal();buyPro()">Get one on WhatsApp →</span></div>
+    </div>
+  </div>
+</div>
+
 <!-- ═══════════ LOGIN MODAL ═══════════ -->
 <div class="modal-overlay hidden" id="loginModal" onclick="handleOverlayClick(event)">
   <div class="modal-box">
@@ -2027,6 +2077,37 @@ footer {
 </div>
 
 <script>
+// ── PRO CODE MODAL ──
+const PRO_CODE = 'BEAST0019';
+
+function openCodeModal() {
+  document.getElementById('codeModal').classList.remove('hidden');
+  document.body.style.overflow = 'hidden';
+  setTimeout(() => document.getElementById('proCodeInput').focus(), 100);
+}
+
+function closeCodeModal() {
+  document.getElementById('codeModal').classList.add('hidden');
+  document.body.style.overflow = '';
+  document.getElementById('proCodeInput').value = '';
+  document.getElementById('codeError').style.display = 'none';
+}
+
+function submitProCode() {
+  const entered = document.getElementById('proCodeInput').value.trim().toUpperCase();
+  if (entered === PRO_CODE) {
+    activatePro();
+    closeCodeModal();
+  } else {
+    const err = document.getElementById('codeError');
+    err.style.display = 'block';
+    document.getElementById('proCodeInput').style.borderColor = 'var(--red)';
+    setTimeout(() => {
+      document.getElementById('proCodeInput').style.borderColor = '';
+    }, 1500);
+  }
+}
+
 // ── PRO STATUS ──
 const isPro = localStorage.getItem('proUser') === 'true';
 
