@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-4R8KQ7XCYK"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
@@ -13,8 +11,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>90 Day Beast – Free + Pro Transformation System</title>
-<link rel="icon" href="logo.png">
-<link rel="apple-touch-icon" href="logo.png">
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800;900&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -725,7 +721,8 @@ nav {
 }
 
 .streak-cell.done { background: var(--orange); border-color: var(--orange); }
-.streak-cell.today { border-color: var(--orange); }
+.streak-cell.missed { background: #ff453a22; border-color: #ff453a66; }
+.streak-cell.today { border-color: var(--orange); box-shadow: 0 0 0 2px #ff6b2b44; }
 .streak-cell:hover { transform: scale(1.2); }
 
 /* ── NUTRITION PAGE ── */
@@ -1695,6 +1692,27 @@ footer {
 
 <!-- ═══════════ TRACKER PAGE ═══════════ -->
 <div id="page-tracker" class="page">
+
+  <!-- Streak Status Banner -->
+  <div id="streakBanner" style="background:linear-gradient(135deg,#ffd60a18,#ff6b2b18);border-bottom:1px solid var(--border);padding:14px 28px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap">
+    <div style="display:flex;align-items:center;gap:12px">
+      <div id="streakBannerFire" style="font-size:2rem;line-height:1">🔥</div>
+      <div>
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:800;text-transform:uppercase;letter-spacing:0.06em" id="streakBannerText">Start your streak today!</div>
+        <div style="font-size:0.78rem;color:var(--muted);margin-top:2px" id="streakBannerSub">Complete today's workout to begin a winning streak</div>
+      </div>
+    </div>
+    <div style="display:flex;gap:8px">
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:10px 18px;text-align:center">
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:1.5rem;font-weight:900;color:var(--yellow);line-height:1" id="streakBannerCount">0</div>
+        <div style="font-size:0.7rem;color:var(--muted);margin-top:2px;font-family:'Barlow Condensed',sans-serif;letter-spacing:0.06em;text-transform:uppercase">Current</div>
+      </div>
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:10px 18px;text-align:center">
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:1.5rem;font-weight:900;color:var(--orange);line-height:1" id="streakBannerBest">0</div>
+        <div style="font-size:0.7rem;color:var(--muted);margin-top:2px;font-family:'Barlow Condensed',sans-serif;letter-spacing:0.06em;text-transform:uppercase">Best</div>
+      </div>
+    </div>
+  </div>
   <div class="tracker-layout">
     <div>
       <!-- Day Progress -->
@@ -1746,6 +1764,11 @@ footer {
         <div class="stat-card-sub">consecutive days</div>
       </div>
       <div class="stat-card">
+        <div class="stat-card-label">Best Streak</div>
+        <div class="stat-card-value" id="bestStreak" style="color:var(--orange)">0 🏆</div>
+        <div class="stat-card-sub">personal record</div>
+      </div>
+      <div class="stat-card">
         <div class="stat-card-label">Current Phase</div>
         <div class="stat-card-value" style="font-size:1.8rem" id="phaseNum">1</div>
         <div class="stat-card-sub" id="phaseName">Foundation</div>
@@ -1755,8 +1778,9 @@ footer {
       <div class="stat-card">
         <div class="stat-card-label" style="margin-bottom:12px">90-Day Calendar</div>
         <div class="streak-grid" id="streakGrid"></div>
-        <div style="display:flex;gap:8px;margin-top:12px;font-size:11px;color:var(--muted)">
+        <div style="display:flex;gap:8px;margin-top:12px;font-size:11px;color:var(--muted);flex-wrap:wrap">
           <span style="display:flex;align-items:center;gap:4px"><span style="width:10px;height:10px;background:var(--orange);border-radius:2px;display:inline-block"></span>Done</span>
+          <span style="display:flex;align-items:center;gap:4px"><span style="width:10px;height:10px;background:#ff453a22;border:1px solid #ff453a66;border-radius:2px;display:inline-block"></span>Missed</span>
           <span style="display:flex;align-items:center;gap:4px"><span style="width:10px;height:10px;background:var(--surface2);border:1px solid var(--border);border-radius:2px;display:inline-block"></span>Upcoming</span>
         </div>
       </div>
@@ -2030,9 +2054,74 @@ const EXERCISES = [
   {name:"Dip (Chair)",muscle:"Triceps, Chest",cat:"push",icon:"🪑",bg:"#ff6b2b18",color:"#ff6b2b",desc:"Hands on chair behind you. Lower until 90°. Targets triceps and lower chest heavily.",tags:["Beginner","Triceps"],diff:"Beginner"},
 ];
 
-let currentDay = 1;
-let completedDays = new Set();
 let currentFilter = 'all';
+
+// ── STREAK / PERSISTENCE HELPERS ──
+function todayStr() {
+  return new Date().toISOString().slice(0, 10); // "YYYY-MM-DD"
+}
+
+function loadState() {
+  try {
+    const raw = localStorage.getItem('beast90_state');
+    if (raw) return JSON.parse(raw);
+  } catch(e) {}
+  return null;
+}
+
+function saveState() {
+  try {
+    localStorage.setItem('beast90_state', JSON.stringify({
+      currentDay,
+      completedDays: [...completedDays],
+      lastVisitDate,
+      currentStreak: calcStreak(),
+      bestStreak
+    }));
+  } catch(e) {}
+}
+
+function calcStreak() {
+  let streak = 0;
+  for (let d = currentDay; d >= 1; d--) {
+    if (completedDays.has(d)) streak++;
+    else break;
+  }
+  return streak;
+}
+
+// ── INIT STATE FROM STORAGE ──
+const saved = loadState();
+let currentDay       = saved ? saved.currentDay       : 1;
+let completedDays    = saved ? new Set(saved.completedDays) : new Set();
+let lastVisitDate    = saved ? saved.lastVisitDate     : null;
+let bestStreak       = saved ? (saved.bestStreak || 0) : 0;
+
+// ── STREAK RESET CHECK ──
+// If the user last visited more than 1 calendar day ago, reset streak
+(function checkStreakReset() {
+  const today = todayStr();
+  if (lastVisitDate && lastVisitDate !== today) {
+    const last = new Date(lastVisitDate);
+    const now  = new Date(today);
+    const diffDays = Math.round((now - last) / 86400000);
+    if (diffDays > 1) {
+      // Skipped at least one day → wipe completed-days streak tail
+      // We keep completedDays history for the calendar but reset the live streak
+      // by recording a "gap" so calcStreak() naturally returns 0
+      // We do this by ensuring the day before currentDay is NOT in completedDays
+      // (already the case if they skipped). Nothing extra needed — calcStreak handles it.
+      showStreakResetToast();
+    }
+  }
+  lastVisitDate = today;
+  saveState();
+})();
+
+function showStreakResetToast() {
+  // Delayed so DOM is ready
+  setTimeout(() => showToast('😬 Streak reset — you missed a day. Start fresh today! 💪'), 1200);
+}
 
 function showPage(id) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
@@ -2070,13 +2159,49 @@ function updateTrackerUI() {
   document.getElementById('todayPhase').textContent = 'Phase ' + phase + ' — ' + phaseNames[phase];
   document.getElementById('todayPhase').className = 'phase-badge ' + phaseBadges[phase];
 
-  // Streak
-  let streak = 0;
-  for(let d = currentDay; d >= 1; d--) {
-    if(completedDays.has(d)) streak++;
-    else break;
-  }
+  // Streak — real consecutive count
+  const streak = calcStreak();
+  if (streak > bestStreak) bestStreak = streak;
   document.getElementById('currentStreak').textContent = streak + ' 🔥';
+  // Update best streak display if element exists
+  const bestEl = document.getElementById('bestStreak');
+  if (bestEl) bestEl.textContent = bestStreak + ' 🏆';
+
+  // Update streak banner
+  const bannerText = document.getElementById('streakBannerText');
+  const bannerSub  = document.getElementById('streakBannerSub');
+  const bannerFire = document.getElementById('streakBannerFire');
+  const bannerCount = document.getElementById('streakBannerCount');
+  const bannerBest  = document.getElementById('streakBannerBest');
+  if (bannerCount) bannerCount.textContent = streak;
+  if (bannerBest)  bannerBest.textContent  = bestStreak;
+  if (bannerText && bannerSub && bannerFire) {
+    if (streak === 0) {
+      bannerFire.textContent = '💤';
+      bannerText.textContent = 'No active streak — start today!';
+      bannerSub.textContent  = 'Complete today\'s workout to ignite your streak';
+    } else if (streak < 3) {
+      bannerFire.textContent = '🔥';
+      bannerText.textContent = streak + '-day streak — keep it up!';
+      bannerSub.textContent  = 'Miss a day and your streak resets to zero';
+    } else if (streak < 7) {
+      bannerFire.textContent = '🔥';
+      bannerText.textContent = streak + '-day streak — habit forming!';
+      bannerSub.textContent  = streak >= 6 ? '1 more day for a full week! 💪' : 'You\'re on fire — don\'t break the chain!';
+    } else if (streak < 14) {
+      bannerFire.textContent = '⚡';
+      bannerText.textContent = streak + '-day streak — you\'re in beast mode!';
+      bannerSub.textContent  = 'Only ' + (14 - streak) + ' days to 2-week streak milestone';
+    } else if (streak < 30) {
+      bannerFire.textContent = '💪';
+      bannerText.textContent = streak + '-day streak — ELITE territory!';
+      bannerSub.textContent  = 'Only ' + (30 - streak) + ' days to the legendary 30-day milestone';
+    } else {
+      bannerFire.textContent = '🏆';
+      bannerText.textContent = streak + '-day streak — YOU ARE THE 7%!';
+      bannerSub.textContent  = 'Absolute legend. Most people quit by now.';
+    }
+  }
 
   updateStreakGrid();
   renderWorkoutList();
@@ -2088,9 +2213,14 @@ function updateStreakGrid() {
   for(let d = 1; d <= 90; d++) {
     const cell = document.createElement('div');
     cell.className = 'streak-cell';
-    if(completedDays.has(d)) cell.classList.add('done');
+    if(completedDays.has(d)) {
+      cell.classList.add('done');
+    } else if(d < currentDay) {
+      // Past day not completed = missed
+      cell.classList.add('missed');
+    }
     if(d === currentDay) cell.classList.add('today');
-    cell.title = 'Day ' + d;
+    cell.title = 'Day ' + d + (completedDays.has(d) ? ' ✓' : d < currentDay ? ' ✗ missed' : '');
     grid.appendChild(cell);
   }
 }
@@ -2105,13 +2235,23 @@ function completeDay() {
     return;
   }
   completedDays.add(currentDay);
+  lastVisitDate = todayStr();
   document.querySelectorAll('.workout-item').forEach(el => el.classList.add('done'));
   updateTrackerUI();
+  saveState();
+  const streak = calcStreak();
+  if (streak > bestStreak) bestStreak = streak;
+  saveState();
+  const milestones = {3:'🔥 3-day streak! You\'re building a habit!', 7:'⚡ 7-day streak! One full week — beast mode!', 14:'💪 14 days straight! You\'re unstoppable!', 30:'🏆 30-DAY STREAK! You\'re in the top 7%!'};
+  if (milestones[streak]) showToast(milestones[streak]);
+  else if (streak > 1) showToast('🔥 ' + streak + '-day streak! Keep it going!');
+  else showToast('✅ Day ' + currentDay + ' complete! Come back tomorrow to build your streak.');
   if(currentDay < 90) {
     setTimeout(() => {
       currentDay++;
       document.querySelectorAll('.workout-item').forEach(el => el.classList.remove('done'));
       updateTrackerUI();
+      saveState();
     }, 800);
   }
 }
