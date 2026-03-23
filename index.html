@@ -1207,26 +1207,34 @@ footer {
 
   /* Nav */
   nav {
-    padding: 0 12px;
+    padding: 10px 14px;
     height: auto;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
     gap: 8px;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    flex-wrap: unset;
   }
-  .nav-logo { font-size: 1.2rem; }
+  .nav-logo {
+    font-size: 1.3rem;
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
   .nav-links {
-    order: 3;
-    width: 100%;
+    order: unset;
+    width: auto;
     overflow-x: auto;
-    padding-bottom: 2px;
+    padding-bottom: 0;
     gap: 2px;
     flex-wrap: nowrap;
+    justify-content: center;
+    scrollbar-width: none;
   }
-  .nav-btn { padding: 6px 10px; font-size: 0.72rem; white-space: nowrap; }
-  #navUserArea { gap: 6px; }
-  .nav-pro-btn { font-size: 0.72rem; padding: 6px 12px; }
-  .nav-login-btn { font-size: 0.72rem; padding: 6px 12px; }
+  .nav-links::-webkit-scrollbar { display: none; }
+  .nav-btn { padding: 5px 8px; font-size: 0.68rem; white-space: nowrap; }
+  #navUserArea { gap: 6px; flex-shrink: 0; }
+  .nav-pro-btn { display: none; } /* hide on mobile — floating button handles it */
+  .nav-login-btn { font-size: 0.72rem; padding: 6px 10px; }
 
   /* Hero */
   .hero { padding: 48px 16px 40px; }
