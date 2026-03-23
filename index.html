@@ -2586,8 +2586,6 @@ function openModal() {
 }
 
 function closeModal() {
-  // Only allow closing if user is already signed in
-  if (!currentUser) return;
   document.getElementById('loginModal').classList.add('hidden');
   document.body.style.overflow = '';
 }
@@ -2633,11 +2631,6 @@ function handleLogout() {
     <button class="nav-pro-btn" onclick="unlockPro()"><span class="pro-icon">⚡</span> Unlock Pro · ₹99</button>
     <button class="nav-login-btn" onclick="openModal()">Sign In</button>`;
   showToast('Signed out. See you tomorrow! 💪');
-  // Force gate back on
-  openModal();
-  // Hide the X button since they must sign in again
-  const closeBtn = document.querySelector('#loginModal .modal-close');
-  if (closeBtn) closeBtn.style.display = 'none';
 }
 
 function handleLogin() {
@@ -2704,13 +2697,7 @@ function handleGoogleLogin() {
 // Escape key only works if already signed in
 document.addEventListener('keydown', e => { if(e.key === 'Escape' && currentUser) closeModal(); });
 
-// ── AUTO OPEN LOGIN ON PAGE LOAD ──
-window.addEventListener('DOMContentLoaded', () => {
-  openModal();
-  // Hide the X close button — must sign in first
-  const closeBtn = document.querySelector('#loginModal .modal-close');
-  if (closeBtn) closeBtn.style.display = 'none';
-});
+// No auto-open on load — modal only opens when user clicks Sign In
 </script>
 </body>
 </html>
