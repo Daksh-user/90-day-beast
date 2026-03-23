@@ -1206,36 +1206,37 @@ footer {
 /* ── COMPREHENSIVE MOBILE FIX ── */
 @media (max-width: 600px) {
 
-  /* Nav */
+  /* Nav — 2 row layout on mobile */
   nav {
-    padding: 10px 14px;
+    padding: 8px 14px 0;
     height: auto;
-    display: grid;
-    grid-template-columns: auto 1fr auto;
-    align-items: center;
-    gap: 8px;
-    flex-wrap: unset;
+    flex-wrap: wrap;
+    gap: 0;
   }
   .nav-logo {
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     flex-shrink: 0;
     white-space: nowrap;
   }
+  #navUserArea {
+    gap: 6px;
+    flex-shrink: 0;
+    margin-left: auto;
+  }
+  .nav-pro-btn { display: none; }
+  .nav-login-btn { font-size: 0.72rem; padding: 6px 10px; }
   .nav-links {
-    order: unset;
-    width: auto;
+    order: 3;
+    width: 100%;
     overflow-x: auto;
-    padding-bottom: 0;
+    padding: 6px 0 8px;
     gap: 2px;
     flex-wrap: nowrap;
-    justify-content: center;
     scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
   }
   .nav-links::-webkit-scrollbar { display: none; }
-  .nav-btn { padding: 5px 8px; font-size: 0.68rem; white-space: nowrap; }
-  #navUserArea { gap: 6px; flex-shrink: 0; }
-  .nav-pro-btn { display: none; } /* hide on mobile — floating button handles it */
-  .nav-login-btn { font-size: 0.72rem; padding: 6px 10px; }
+  .nav-btn { padding: 6px 12px; font-size: 0.78rem; white-space: nowrap; flex-shrink: 0; }
 
   /* Hero */
   .hero { padding: 48px 16px 40px; }
